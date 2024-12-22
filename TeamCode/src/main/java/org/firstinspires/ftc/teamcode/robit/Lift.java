@@ -63,6 +63,10 @@ public class Lift extends GLOBALS {
         motor.setPower(power);
     }
 
+    public boolean isLiftLifted(){
+        return CulisantaDreapta.isBusy() && CulisantaStanga.isBusy();
+    }
+
 
 
 }

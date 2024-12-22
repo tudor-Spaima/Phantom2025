@@ -22,20 +22,26 @@ class DriveController implements Runnable {
     Telemetry telemetry;
     MecanumDrive drive ;
     Gamepad gp1;
+    volatile double driveSpeedMultiplier = 1.0;
     public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive) {
         this.telemetry = telemetry;
         this.gp1 = gp1;
         this.drive = drive;
     }
+
+    public void updateDriveSpeedMultiplier(double multiplier) {
+        this.driveSpeedMultiplier = multiplier;
+    }
+
     @Override
     public void run() {
         while (true) {
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
-                            -gp1.left_stick_y,
-                            -gp1.left_stick_x
+                            -gp1.left_stick_y * driveSpeedMultiplier,
+                            -gp1.left_stick_x * driveSpeedMultiplier
                     ),
-                    -gp1.right_stick_x
+                    -gp1.right_stick_x * driveSpeedMultiplier
             ));
             drive.updatePoseEstimate();
         }
@@ -44,12 +50,13 @@ class DriveController implements Runnable {
 @TeleOp(name = "Teleop", group = "Teleop")
 public class Teleop extends LinearOpMode {
      enum teleopStates{
-        Intake, Score, Specimen, SpecimenTEAVA ,Init;
+        Intake, Score, Specimen, SpecimenTEAVA ,Init
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
-        GLOBALS globals = new GLOBALS();
+         double DRIVE_INDEX;
+
         teleopStates currentState = Init;
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
@@ -57,7 +64,16 @@ public class Teleop extends LinearOpMode {
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);
 
-        Thread driveControllerThread = new Thread(new DriveController(telemetry,  gamepad1, drive));
+        //GLOBALS globals = new GLOBALS();
+
+
+//        DriveController driveController = new DriveController(telemetry, gamepad1, drive);
+//        Thread driveControllerThread = new Thread(new DriveController(telemetry,  gamepad1, drive));
+
+        DriveController driveController = new DriveController(telemetry, gamepad1, drive);
+        Thread driveControllerThread = new Thread(driveController);
+
+
         PhotonCore photonCore = new PhotonCore();
         PhotonCore.ExperimentalParameters ph = new PhotonCore.ExperimentalParameters();
         ph.setMaximumParallelCommands(8);
@@ -81,6 +97,7 @@ public class Teleop extends LinearOpMode {
         driveControllerThread.start();
 
         while (opModeIsActive()) {
+
 
             switch (currentState){
 
@@ -252,6 +269,12 @@ public class Teleop extends LinearOpMode {
 
             }
 
+            if (extendo.isExtendoExtended()) {DRIVE_INDEX = 0.5;} else {
+                DRIVE_INDEX = 1.0;
+            }
+
+
+            driveController.updateDriveSpeedMultiplier(DRIVE_INDEX);
 
             telemetry.addData("Runtime", getRuntime());
             telemetry.addData("Drive Thread Alive", driveControllerThread.isAlive());

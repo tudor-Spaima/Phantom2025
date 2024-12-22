@@ -1,12 +1,7 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.robit;
 
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.teamcode.robit.Arms;
-import org.firstinspires.ftc.teamcode.robit.Extendo;
-import org.firstinspires.ftc.teamcode.robit.GLOBALS;
-import org.firstinspires.ftc.teamcode.robit.Lift;
 
 public class util  {
     Lift lift;

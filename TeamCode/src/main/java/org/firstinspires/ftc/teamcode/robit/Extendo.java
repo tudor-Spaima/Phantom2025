@@ -25,4 +25,8 @@ public class Extendo extends GLOBALS {
         }
     }
 
+    public boolean isExtendoExtended(){
+        return extendo.getPosition() == Extended;
+    }
+
 }
