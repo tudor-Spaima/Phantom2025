@@ -160,6 +160,8 @@ public class Teleop extends LinearOpMode {
 
                     //transfer
                     if(gamepad2.cross){
+
+                        //TODO optimizare timp de transfer
                         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                         extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);

@@ -81,6 +81,11 @@ public class GLOBALS {
     public static final double brat_scorare_specimen_scorare = 0.7;
     public static final double pivot_specimen_scorare = 0.2;
 
+    //parametrii senzori
+    public static final double intake_distance = 0.01;
+    public static final double gripper_has_sample = 0.1;
+    public static final double sample_transfered = 0.9;
+
 
 
 

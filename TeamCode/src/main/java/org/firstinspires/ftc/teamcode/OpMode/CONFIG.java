@@ -14,16 +14,15 @@ import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.Lift;
 
 
-@com.acmerobotics.dashboard.config.Config
 @TeleOp(name = "CONFIG")
 public class CONFIG  extends LinearOpMode {
 
     public static double PIVOT = 0.25;
     public static double BRAT_SCORE = 0.37;
     public static double BRAT_INTAKE = 0.37;
-    public static double ROTIRE_GRIPPER = 0.5;
-    public static double GRIPPER_SCORE = 0.5;
-    public static double GRIPPER_INTAKE = 0.5;
+    public static double ROTIRE_GRIPPER = 0.25;
+    //public static double GRIPPER_SCORE = 0.5;
+    public static double GRIPPER_INTAKE = 0.97;
 
 
     @Override
@@ -44,8 +43,10 @@ public class CONFIG  extends LinearOpMode {
             arms.rotire_gripper.setPosition(ROTIRE_GRIPPER);
             extendo.updateExtendoPosition(Extendo.ExtendoPositions.Init);
 
-            arms.gripper_score.setPosition(GRIPPER_SCORE);
+            //arms.gripper_score.setPosition(GRIPPER_SCORE);
             arms.gripper_intake.setPosition(GRIPPER_INTAKE);
+
+
 
 
             telemetry.addData("pivot", arms.pivot.getPosition());
