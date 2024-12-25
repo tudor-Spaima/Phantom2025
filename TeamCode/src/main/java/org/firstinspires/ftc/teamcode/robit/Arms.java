@@ -24,6 +24,8 @@ public class Arms extends GLOBALS {
             case Inchis:
                 gripper_intake.setPosition(gripper_intake_inchis);
                 break;
+            case Transfer:
+                gripper_intake.setPosition(gripper_intake_transfer);
         }
     }
     public void updateGripperScorePosition(grippers_positions position){

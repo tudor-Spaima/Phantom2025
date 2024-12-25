@@ -19,7 +19,7 @@ public class GLOBALS {
     public static final double Init = 0.99;
     public static final double Extended = 0.735;
     public static final double Retracted = 0.99;
-    public static final double Transfer = 0.25;
+    public static final double Transfer = 0.9 ;
 
     //Arms
     public enum brat_intake_positions{
@@ -35,13 +35,15 @@ public class GLOBALS {
         pe_lung, pe_lat;
     }
     public enum grippers_positions{
-        Deschis, Inchis;
+        Deschis, Inchis, Transfer
     }
 
 
 
-    public static final double gripper_intake_inchis = 0.83;
-    public static final double gripper_intake_deschis = 0.97;
+    public static final double gripper_intake_inchis = 0.8;
+    public static final double gripper_intake_deschis = 0.96;
+    public static final double gripper_intake_transfer = 0.83;
+
     public static final double gripper_score_inchis = 0.05;
     public static final double gripper_score_deschis = 0.325;
 
@@ -50,7 +52,7 @@ public class GLOBALS {
 
     public static final double brat_intake_in = 0.82;
     public static final double brat_intake_colectare = 0.88;
-    public static final  double brat_intake_transfer = 0.4;
+    public static final  double brat_intake_transfer = 0.37; //0.4
     public static  final double brat_intake_init = 0.37;
 
 
@@ -58,7 +60,7 @@ public class GLOBALS {
 
     public static final double brat_score_init = 0.08;
     public  static final double brat_score_safe = 0.25;
-    public static final double brat_score_transfer = 0.055;
+    public static final double brat_score_transfer = 0.05;
     public static final double brat_score_sc = 0.4;
     public static final double brat_score_specimen = 0.65;
 

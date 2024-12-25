@@ -22,28 +22,39 @@ class DriveController implements Runnable {
     Telemetry telemetry;
     MecanumDrive drive ;
     Gamepad gp1;
-    volatile double driveSpeedMultiplier = 1.0;
-    public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive) {
+    Extendo extendo;
+    volatile double driveSpeedMultiplier ;
+    public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive, Extendo extendo) {
         this.telemetry = telemetry;
         this.gp1 = gp1;
         this.drive = drive;
+        this.extendo = extendo;
     }
 
-    public void updateDriveSpeedMultiplier(double multiplier) {
-        this.driveSpeedMultiplier = multiplier;
-    }
 
     @Override
     public void run() {
         while (true) {
-            drive.setDrivePowers(new PoseVelocity2d(
-                    new Vector2d(
-                            -gp1.left_stick_y * driveSpeedMultiplier,
-                            -gp1.left_stick_x * driveSpeedMultiplier
-                    ),
-                    -gp1.right_stick_x * driveSpeedMultiplier
-            ));
-            drive.updatePoseEstimate();
+            if (extendo.isExtendoExtended()) {
+                drive.setDrivePowers(new PoseVelocity2d(
+                        new Vector2d(
+                                -gp1.left_stick_y * 0.5,
+                                -gp1.left_stick_x * 0.5
+                        ),
+                        -gp1.right_stick_x * 0.5
+                ));
+                drive.updatePoseEstimate();
+            }else{
+                drive.setDrivePowers(new PoseVelocity2d(
+                        new Vector2d(
+                                -gp1.left_stick_y ,
+                                -gp1.left_stick_x
+                        ),
+                        -gp1.right_stick_x
+                ));
+                drive.updatePoseEstimate();
+            }
+
         }
     }
 }
@@ -70,7 +81,7 @@ public class Teleop extends LinearOpMode {
 //        DriveController driveController = new DriveController(telemetry, gamepad1, drive);
 //        Thread driveControllerThread = new Thread(new DriveController(telemetry,  gamepad1, drive));
 
-        DriveController driveController = new DriveController(telemetry, gamepad1, drive);
+        DriveController driveController = new DriveController(telemetry, gamepad1, drive, extendo);
         Thread driveControllerThread = new Thread(driveController);
 
 
@@ -163,21 +174,30 @@ public class Teleop extends LinearOpMode {
 
                         //TODO optimizare timp de transfer
                         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-                        extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
                         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
                         arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
                         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
 
-                        sleep(600);
+
+
+                        sleep(300);
+                        extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
+
+                        sleep(300);
+
                         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Transfer);
                         sleep(400);
                         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         sleep(100);
                         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                        sleep(200);
                         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+
+
+                        sleep(200);
+                        extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+
                         arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
 
@@ -271,12 +291,7 @@ public class Teleop extends LinearOpMode {
 
             }
 
-            if (extendo.isExtendoExtended()) {DRIVE_INDEX = 0.5;} else {
-                DRIVE_INDEX = 1.0;
-            }
 
-
-            driveController.updateDriveSpeedMultiplier(DRIVE_INDEX);
 
             telemetry.addData("Runtime", getRuntime());
             telemetry.addData("Drive Thread Alive", driveControllerThread.isAlive());

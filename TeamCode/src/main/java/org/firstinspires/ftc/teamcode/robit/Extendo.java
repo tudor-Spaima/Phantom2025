@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.robit;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -28,5 +32,7 @@ public class Extendo extends GLOBALS {
     public boolean isExtendoExtended(){
         return extendo.getPosition() == Extended;
     }
+
+
 
 }

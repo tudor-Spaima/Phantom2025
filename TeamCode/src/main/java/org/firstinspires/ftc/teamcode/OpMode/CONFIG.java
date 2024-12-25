@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpMode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 
 import com.acmerobotics.roadrunner.Pose2d;
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.Lift;
 
-
+@Config
 @TeleOp(name = "CONFIG")
 public class CONFIG  extends LinearOpMode {
 
@@ -23,6 +24,9 @@ public class CONFIG  extends LinearOpMode {
     public static double ROTIRE_GRIPPER = 0.25;
     //public static double GRIPPER_SCORE = 0.5;
     public static double GRIPPER_INTAKE = 0.97;
+
+    public static double EXTENDO = 0.99;
+
 
 
     @Override
@@ -41,7 +45,7 @@ public class CONFIG  extends LinearOpMode {
             arms.brat_score.setPosition(BRAT_SCORE);
             arms.brat_intake.setPosition(BRAT_INTAKE);
             arms.rotire_gripper.setPosition(ROTIRE_GRIPPER);
-            extendo.updateExtendoPosition(Extendo.ExtendoPositions.Init);
+            extendo.extendo.setPosition(EXTENDO);
 
             //arms.gripper_score.setPosition(GRIPPER_SCORE);
             arms.gripper_intake.setPosition(GRIPPER_INTAKE);
@@ -52,7 +56,9 @@ public class CONFIG  extends LinearOpMode {
             telemetry.addData("pivot", arms.pivot.getPosition());
             telemetry.addData("brat_score", arms.brat_score.getPosition());
             telemetry.addData("brat_intake", arms.brat_intake.getPosition());
-            telemetry.addData("lift", lift.CulisantaDreapta.getCurrentPosition());
+            telemetry.addData("dreapta ", lift.CulisantaDreapta.getCurrentPosition());
+            telemetry.addData("stanga ", lift.CulisantaStanga.getCurrentPosition());
+
 
             telemetry.update();
 
@@ -69,3 +75,5 @@ public class CONFIG  extends LinearOpMode {
         }
     }
 }
+
+
