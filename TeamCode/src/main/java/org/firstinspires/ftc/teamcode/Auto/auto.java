@@ -24,12 +24,8 @@ import org.firstinspires.ftc.teamcode.robit.Lift;
 
 @Autonomous(name = "auto")
 public class auto extends LinearOpMode {
-
-
-
     @Override
     public void runOpMode() throws InterruptedException {
-
 
 
         Lift lift = new Lift(hardwareMap);
@@ -50,13 +46,9 @@ public class auto extends LinearOpMode {
         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
         Pose2d start = new Pose2d(new Vector2d (0,0),Math.toRadians(0));
-
         MecanumDrive drive = new MecanumDrive(hardwareMap, start);
 
-
-
         waitForStart();
-
 
 
         Actions.runBlocking(
@@ -65,11 +57,14 @@ public class auto extends LinearOpMode {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
+
                         .strafeToConstantHeading(new Vector2d(16, 34.1))
                         .afterTime(0, ()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
 
                         })
+
+
                         .strafeToConstantHeading(new Vector2d(14, 29))
                         .afterTime(0, ()->{
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Extended);
@@ -86,9 +81,6 @@ public class auto extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
-
-
-
 
                             sleep(300);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
@@ -110,9 +102,6 @@ public class auto extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
 
                         })
-
-
-
 
 
                         .build());
@@ -180,9 +169,6 @@ public class auto extends LinearOpMode {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             sleep(300);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-
-
-
 
                         })
 
