@@ -7,6 +7,7 @@ public class Senzori {
     public RevColorSensorV3 senzorIntake,senzorOutake = null;
     public Senzori(HardwareMap hardwareMap) {
         senzorIntake = hardwareMap.get(RevColorSensorV3.class, "senzorIntake");
+
         KalmanFiltering kalmanFilter = new KalmanFiltering(
                 0,
                 1,

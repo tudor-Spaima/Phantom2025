@@ -30,7 +30,7 @@ public class Extendo extends GLOBALS {
     }
 
     public boolean isExtendoExtended(){
-        return extendo.getPosition() == Extended;
+        return Math.abs(extendo.getPosition() - Extended) < 0.01;
     }
 
 

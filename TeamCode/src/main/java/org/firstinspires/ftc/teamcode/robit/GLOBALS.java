@@ -32,7 +32,7 @@ public class GLOBALS {
         Score, Specimen, Transfer, Safe, SpecimenScorare;
     }
     public enum rotire_gripper_positions{
-        pe_lung, pe_lat;
+        pe_lung, pe_lat, mai_asea;
     }
     public enum grippers_positions{
         Deschis, Inchis, Transfer
@@ -44,8 +44,8 @@ public class GLOBALS {
     public static final double gripper_intake_deschis = 0.96;
     public static final double gripper_intake_transfer = 0.83;
 
-    public static final double gripper_score_inchis = 0.05;
-    public static final double gripper_score_deschis = 0.325;
+    public static final double gripper_score_inchis = 0.005;
+    public static final double gripper_score_deschis = 0.14;
 
 
 
@@ -60,15 +60,15 @@ public class GLOBALS {
 
     public static final double brat_score_init = 0.08;
     public  static final double brat_score_safe = 0.25;
-    public static final double brat_score_transfer = 0.05;
+    public static final double brat_score_transfer = 0.07 ;
     public static final double brat_score_sc = 0.4;
-    public static final double brat_score_specimen = 0.65;
+    public static final double brat_score_specimen = 0.02;
 
 
 
 
     public static final double pivot_score = 0.55;
-    public static final double pivot_specimen = 0.45;
+    public static final double pivot_specimen = 0.52;
     public static final double pivot_transfer = 0.2;
     public  static  final double pivot_safe = 0.5;
 
@@ -76,12 +76,14 @@ public class GLOBALS {
 
     public final static double rotire_gripper_pe_lung = 0.5;//si astea tot de facut
     public final static double rotire_gripper_pe_lat = 0.25;
+    public final static double rotire_gripper_mai_asea = 0.125;
+
 
 
     //Pozitii pentru specimen scorare, restul cu specimen sunt pentru colectare
-    public  static  final int lift_specimen_scorare = 800;
-    public static final double brat_scorare_specimen_scorare = 0.7;
-    public static final double pivot_specimen_scorare = 0.2;
+    public  static  final int lift_specimen_scorare = 1410;
+    public static final double brat_scorare_specimen_scorare = 0.6;
+    public static final double pivot_specimen_scorare = 0.75;
 
     //parametrii senzori
     public static final double intake_distance = 0.01;

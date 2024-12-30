@@ -1,29 +1,20 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 
-import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Trajectory;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.outoftheboxrobotics.photoncore.PhotonCore;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.OpMode.Teleop;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
 import org.firstinspires.ftc.teamcode.robit.Lift;
 
-@Autonomous(name = "auto")
-public class auto extends LinearOpMode {
+@Autonomous(name = "auto_sample")
+public class auto_sample extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -31,9 +22,6 @@ public class auto extends LinearOpMode {
         Lift lift = new Lift(hardwareMap);
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);
-
-
-
 
         //INITIALIZARE
         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -58,14 +46,17 @@ public class auto extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
 
-                        .strafeToConstantHeading(new Vector2d(16, 34.1))
+
+                        .strafeToConstantHeading(new Vector2d(18, 34.1))
+                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+
                         .afterTime(0, ()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
 
                         })
 
 
-                        .strafeToConstantHeading(new Vector2d(14, 29))
+                        .strafeToConstantHeading(new Vector2d(12, 29))
                         .afterTime(0, ()->{
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Extended);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
@@ -86,7 +77,6 @@ public class auto extends LinearOpMode {
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
 
                             sleep(300);
-
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Transfer);
                             sleep(400);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
@@ -103,22 +93,33 @@ public class auto extends LinearOpMode {
 
                         })
 
-
-                        .build());
-
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(14, 28),Math.toRadians(0)))
+                        .strafeToConstantHeading(new Vector2d(20, 34.1))
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
-                        .afterTime(1, ()->{
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
 
-                        })
+
+                        .build());
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(20, 34.1),Math.toRadians(0)))
+
+
                         .strafeToConstantHeading(new Vector2d(16, 34.1))
 
-                        .strafeToConstantHeading(new Vector2d(14, 18))
+                        .afterTime(0.4, ()->{
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                        })
+                                .build()
+        );
+
+        sleep(700);
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(16, 34.1),Math.toRadians(0)))
+
+                        .strafeToConstantHeading(new Vector2d(12, 18))
 
                         .afterTime(0, ()->{
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Extended);
@@ -136,9 +137,6 @@ public class auto extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
-
-
-
                             sleep(300);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
 
@@ -160,12 +158,19 @@ public class auto extends LinearOpMode {
 
                         })
 
-                        .strafeToConstantHeading(new Vector2d(14.5, 28))
+
+
+                        .strafeToConstantHeading(new Vector2d(15, 28))
+
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
+                        })
+
+                        .afterTime(1, ()->{
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
-                        .afterTime(2, ()->{
+
+                        .afterTime(2.5, ()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             sleep(300);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
@@ -176,9 +181,10 @@ public class auto extends LinearOpMode {
 
 
                         .build());
+        sleep(500);
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(15, 28),Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d(16, 28),Math.toRadians(0)))
                         .afterTime(0, ()->{
 
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -188,7 +194,7 @@ public class auto extends LinearOpMode {
 
 
                         })
-                        .strafeToLinearHeading(new Vector2d(37, 25), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90))
 
 
                         .afterTime(0.1, ()->{
@@ -199,7 +205,7 @@ public class auto extends LinearOpMode {
                                 .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(37, 25),Math.toRadians(90)))
+                drive.actionBuilder(new Pose2d(new Vector2d(37, 24),Math.toRadians(90)))
                         .afterTime(0.2, ()->{
 
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -229,7 +235,7 @@ public class auto extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
 
                         })
-                        .strafeToLinearHeading(new Vector2d(14, 15), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(15, 15), Math.toRadians(0))
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                         })
@@ -260,7 +266,10 @@ public class auto extends LinearOpMode {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                         })
+                        .strafeToLinearHeading(new Vector2d(37, 10), Math.toRadians(90))
+
                         .strafeToLinearHeading(new Vector2d(70, -6), Math.toRadians(90))
+
 
                         .afterTime(0, ()->{
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
