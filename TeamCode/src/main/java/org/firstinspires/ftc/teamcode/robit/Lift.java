@@ -57,6 +57,23 @@ public class Lift extends GLOBALS {
         }
     }
 
+    public void manualControl(double increment, double decrement, double ratio){
+        CulisantaDreapta.setTargetPosition((int) (CulisantaDreapta.getCurrentPosition() + ((increment - decrement)*ratio)));
+        CulisantaStanga.setTargetPosition((int) (CulisantaStanga.getCurrentPosition() + ((increment - decrement)*ratio)));
+    }
+
+    public void manualControl(double increment, double ratio){
+        CulisantaDreapta.setTargetPosition((int) (CulisantaDreapta.getCurrentPosition() + (increment*ratio)));
+        CulisantaStanga.setTargetPosition((int) (CulisantaStanga.getCurrentPosition() + (increment*ratio)));
+    }
+
+    public void manualEncodersReset(boolean reset){
+        if(reset){
+            CulisantaDreapta.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            CulisantaStanga.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+    }
+
     public void goToPos(int position, double power, DcMotor motor){
         motor.setTargetPosition(position);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -66,7 +83,5 @@ public class Lift extends GLOBALS {
     public boolean isLiftLifted(){
         return CulisantaDreapta.isBusy() && CulisantaStanga.isBusy();
     }
-
-
 
 }

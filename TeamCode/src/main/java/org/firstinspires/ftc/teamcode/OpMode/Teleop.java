@@ -69,9 +69,6 @@ public class Teleop extends LinearOpMode {
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);
 
-//        DriveController driveController = new DriveController(telemetry, gamepad1, drive);
-//        Thread driveControllerThread = new Thread(new DriveController(telemetry,  gamepad1, drive));
-
         DriveController driveController = new DriveController(telemetry, gamepad1, drive, extendo, hardwareMap);
         Thread driveControllerThread = new Thread(driveController);
 
@@ -96,7 +93,6 @@ public class Teleop extends LinearOpMode {
         waitForStart();
 
         driveControllerThread.start();
-
         while (opModeIsActive()) {
 
 
@@ -154,9 +150,6 @@ public class Teleop extends LinearOpMode {
                         else{
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                         }
-
-
-
 
 
                     //transfer
@@ -255,15 +248,12 @@ public class Teleop extends LinearOpMode {
                     if (gamepad2.triangle){
                         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         sleep(1000);
-
                         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-
                         extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
                         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
                         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-
 
                         sleep(200);
                         currentState = Intake;
@@ -274,23 +264,26 @@ public class Teleop extends LinearOpMode {
 
                 case SpecimenTEAVA: //adica scorare
 
-
                     if (gamepad1.circle){
                         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         sleep(1000);
-
                         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                         extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-
                         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
                         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
                         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
-                        currentState = Specimen;
+
                         sleep(200);
+                        currentState = Specimen;
                     }
+                    break;
             }
+
+
+            lift.manualControl(gamepad2.left_stick_x, 10);
+            lift.manualEncodersReset(gamepad2.dpad_right);
 
 
 

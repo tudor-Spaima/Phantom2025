@@ -44,7 +44,8 @@ public class autoSpecimen4 extends LinearOpMode {
         arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
 
         Pose2d start = new Pose2d(new Vector2d(0, 0), Math.toRadians(0));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, start);
+
+        MecanumDrive drive = new MecanumDrive(hardwareMap, start, -0.5);
 
         ElapsedTime timp = new ElapsedTime();
 
