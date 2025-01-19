@@ -17,9 +17,9 @@ public class GLOBALS {
         Extended, Retracted, Transfer, Init;
     }
     public static final double Init = 0.99;
-    public static final double Extended = 0.735;
+    public static final double Extended = 0.74;
     public static final double Retracted = 0.99;
-    public static final double Transfer = 0.865;
+    public static final double Transfer = 0.888;
 
     //Arms
     public enum brat_intake_positions{
