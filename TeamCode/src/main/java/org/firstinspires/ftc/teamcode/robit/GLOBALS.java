@@ -19,7 +19,7 @@ public class GLOBALS {
     public static final double Init = 0.99;
     public static final double Extended = 0.735;
     public static final double Retracted = 0.99;
-    public static final double Transfer = 0.9 ;
+    public static final double Transfer = 0.865;
 
     //Arms
     public enum brat_intake_positions{
@@ -81,7 +81,7 @@ public class GLOBALS {
 
 
     //Pozitii pentru specimen scorare, restul cu specimen sunt pentru colectare
-    public  static  final int lift_specimen_scorare = 1410;
+    public  static  final int lift_specimen_scorare = 1350;
     public static final double brat_scorare_specimen_scorare = 0.6;
     public static final double pivot_specimen_scorare = 0.75;
 

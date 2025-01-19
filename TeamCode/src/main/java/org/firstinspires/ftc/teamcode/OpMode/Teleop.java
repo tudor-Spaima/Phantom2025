@@ -282,16 +282,20 @@ public class Teleop extends LinearOpMode {
             }
 
 
-            lift.manualControl(gamepad2.left_stick_x, 75);
+/*
+            if(gamepad2.left_stick_x>1 || gamepad2.left_stick_x<-1){
+                lift.manualControl(gamepad2.left_stick_y, 75);
+            }
+*/
             lift.manualEncodersReset(gamepad2.dpad_down);
 
-            if(gamepad2.right_bumper){
-                lift.goToPos( 1900, 1, lift.CulisantaDreapta);
-                lift.goToPos( 1900, 1, lift.CulisantaStanga);
-            }
             if(gamepad2.left_bumper){
-                lift.goToPos( 0, 1, lift.CulisantaDreapta);
-                lift.goToPos( 0, 1, lift.CulisantaStanga);
+                lift.goToPos(1950, 1, lift.CulisantaDreapta);
+                lift.goToPos(1950, 1, lift.CulisantaStanga);
+            }
+            if(gamepad2.right_bumper){
+                lift.goToPos(1000, 1, lift.CulisantaDreapta);
+                lift.goToPos(1000, 1, lift.CulisantaStanga);
             }
 
 

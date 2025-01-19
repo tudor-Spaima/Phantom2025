@@ -21,8 +21,8 @@ public class Lift extends GLOBALS {
         CulisantaStanga.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         CulisantaDreapta.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        CulisantaDreapta.setDirection(DcMotorSimple.Direction.FORWARD);
-        CulisantaStanga.setDirection(DcMotorSimple.Direction.REVERSE);
+        CulisantaDreapta.setDirection(DcMotorSimple.Direction.REVERSE);
+        CulisantaStanga.setDirection(DcMotorSimple.Direction.FORWARD);
 
         CulisantaStanga.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         CulisantaDreapta.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -58,13 +58,11 @@ public class Lift extends GLOBALS {
     }
 
     public void manualControl(double increment, double decrement, double ratio){
-
     }
 
     public void manualControl(double increment, double ratio){
         goToPos((int) (CulisantaDreapta.getCurrentPosition() + (increment*ratio)), 1, CulisantaDreapta);
         goToPos((int) (CulisantaStanga.getCurrentPosition() + (increment*ratio)), 1, CulisantaStanga);
-
     }
 
     public void manualEncodersReset(boolean reset){

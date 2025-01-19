@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.robit.Lift;
 import java.util.Arrays;
 
 
-@Autonomous(name="autoSpecimen4")
-public class autoSpecimen4 extends LinearOpMode {
+@Autonomous(name="autoExperimentala")
+public class autoExperimentala extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -62,31 +62,52 @@ public class autoSpecimen4 extends LinearOpMode {
         AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
 
 
+        arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+
+
+
         //Initializare
 
 
         waitForStart();
         timp.startTime();
 
+
+
         Actions.runBlocking(
                 drive.actionBuilder(start)
-                        //preload
-                        .afterTime(0, () -> {
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
-                            arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
+
+                        //sample
+                        .afterTime(1, ()->{
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
+                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+                            arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
+
                         })
-                        .afterTime(1.2, () -> {
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-                        })
-                        .strafeToConstantHeading(new Vector2d(-30, 0), baseVelConstraint)
+
+
+                        .strafeToLinearHeading(new Vector2d(-58, 14), Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-7, 16), Math.toRadians(0), velPuternic,accelPuternic)
+
+                        .strafeToLinearHeading(new Vector2d(-58, 17), Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-58, 27), Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-7, 28), Math.toRadians(0), velPuternic,accelPuternic)
+
+                        .strafeToLinearHeading(new Vector2d(-58, 27), Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-58, 37), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(-8, 37), Math.toRadians(0), velPuternic,accelPuternic)
+
 
                         .build());
 
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-30, 0), Math.toRadians(0)))
 
-                        //sample
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(-8, 37), Math.toRadians(0)))
+                        //colectare specimen 1
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
@@ -97,29 +118,38 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(-10, 25) ,Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-10 ,10), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .strafeToLinearHeading(new Vector2d(2 ,10), Math.toRadians(0))
+
+                        .afterTime(0,()->{
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+                        })
+                        .build());
 
 
-                        .strafeToLinearHeading(new Vector2d(-48, 37) ,Math.toRadians(0), velPuternic,accelPuternic)
-                        .strafeToLinearHeading(new Vector2d(-8, 40), Math.toRadians(0), velPuternic,accelPuternic)
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(2, 10), Math.toRadians(0)))
+                        //livrare preload
+
+                        .afterTime(0.7, () -> {
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
+                            arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
+                        })
+                        .strafeToConstantHeading(new Vector2d(-10, -23), baseVelConstraint)
 
 
-                        .strafeToConstantHeading(new Vector2d(-47, 40) , velPuternic,accelPuternic)
-                        .strafeToLinearHeading(new Vector2d(-48, 50), Math.toRadians(0),velPuternic,accelPuternic)
-                        .strafeToConstantHeading(new Vector2d(-8, 50) , velPuternic,accelPuternic)
-
-
-                        .strafeToConstantHeading(new Vector2d(-47, 50) , velPuternic,accelPuternic)
-                        .strafeToLinearHeading(new Vector2d(-47, 57), Math.toRadians(0))
-                        .strafeToConstantHeading(new Vector2d(-8, 55),  velPuternic,accelPuternic)
-
-
+                        .strafeToConstantHeading(new Vector2d(-30, -23), baseVelConstraint)
+                        .afterTime(0, () -> {
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                        })
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-8, 55), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d(-30, -23), Math.toRadians(0)))
                         //colectare specimen 1
-                        .afterTime(0, ()->{
+                        .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
@@ -129,37 +159,92 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(4, 55) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        /*
+                        .strafeToLinearHeading(new Vector2d(-10, -23), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .strafeToLinearHeading(new Vector2d(-10 ,10), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
+                         */
 
-                        //.strafeToLinearHeading(new Vector2d(3 ,40), Math.toRadians(0))
+                        .splineToConstantHeading(new Vector2d(-15, 10) ,Math.toRadians(0), baseVelConstraint)
+
+                        .strafeToLinearHeading(new Vector2d(3 ,10), Math.toRadians(0))
+
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
                         .build());
 
+
+
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d(2, 10), Math.toRadians(0)))
                         //livrare specimen 1
-                        .afterTime(0, () -> {
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
+                        .afterTime(0.7, () -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
                         })
-                        //.strafeToLinearHeading(new Vector2d(-10, 5), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .strafeToConstantHeading(new Vector2d(-10, -23), baseVelConstraint)
 
-                        .afterTime(1.9, () -> {
+
+                        .strafeToConstantHeading(new Vector2d(-30, -23), baseVelConstraint)
+                        .afterTime(0, () -> {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         })
-
-                        .splineToConstantHeading(new Vector2d(-29, -15) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
 
                         .build());
 
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-29, -15), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d(-30, -23), Math.toRadians(0)))
+                        //colectare specimen 1
+                        .afterTime(1, ()->{
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
+                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                            arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
+
+                        })
+                        /*
+                        .strafeToLinearHeading(new Vector2d(-10, -23), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .strafeToLinearHeading(new Vector2d(-10 ,10), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+
+                         */
+
+
+                        .splineToConstantHeading(new Vector2d(-15, 10) ,Math.toRadians(0), baseVelConstraint)
+
+                        .strafeToLinearHeading(new Vector2d(3 ,10), Math.toRadians(0))
+                        .afterTime(0,()->{
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+                        })
+                        .build());
+
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(3, 10), Math.toRadians(0)))
+                        //livrare specimen 1
+                        .afterTime(0.7, () -> {
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
+                            arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
+                        })
+                        .strafeToConstantHeading(new Vector2d(-10, -23), baseVelConstraint)
+
+
+                        .strafeToConstantHeading(new Vector2d(-30, -23), baseVelConstraint)
+                        .afterTime(0, () -> {
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                        })
+
+                        .build());
+        /*
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d(-31, -8), Math.toRadians(0)))
                         //colectare specimen 3
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -171,8 +256,7 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(-10, 35) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
+                        .strafeToLinearHeading(new Vector2d(-10, 30), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
                         .strafeToLinearHeading(new Vector2d(3, 35), Math.toRadians(0))
                         .afterTime(0,()->{
@@ -188,11 +272,14 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
                         })
-                        .afterTime(1.9, () -> {
+                        .strafeToLinearHeading(new Vector2d(-10, 5), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+
+
+
+                        .strafeToConstantHeading(new Vector2d(-32,-10 ), baseVelConstraint,baseAccelConstraint)
+                        .afterTime(0, () -> {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         })
-                        .splineToConstantHeading(new Vector2d(-28, -15) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
                         .build());
 
         Actions.runBlocking(
@@ -208,47 +295,7 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(-10, 30) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
-
-                        .strafeToLinearHeading(new Vector2d(3, 35), Math.toRadians(0))
-                        .afterTime(0,()->{
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
-                        })
-                        .build());
-
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
-                        //livrare specimen 4
-                        .afterTime(0, () -> {
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
-                            arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
-                        })
-
-                        .afterTime(1.9, () -> {
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-                        })
-                        .splineToConstantHeading(new Vector2d(-28, -15) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
-
-                        .build());
-
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-31, -15), Math.toRadians(0)))
-                        //colectare specimen 4
-                        .afterTime(1, ()->{
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
-                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-                            arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
-
-                        })
-                        .splineToConstantHeading(new Vector2d(-10, 30) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
+                        .strafeToLinearHeading(new Vector2d(-10, 30), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
                         .strafeToLinearHeading(new Vector2d(3, 35), Math.toRadians(0))
                         .afterTime(0,()->{
@@ -264,20 +311,21 @@ public class autoSpecimen4 extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
                         })
+                        .strafeToLinearHeading(new Vector2d(-10, 5), Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
-                        .afterTime(1.9, () -> {
+
+
+                        .strafeToConstantHeading(new Vector2d(-32, -10), baseVelConstraint,baseAccelConstraint)
+                        .afterTime(0, () -> {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                         })
-                        .splineToConstantHeading(new Vector2d(-28, -15) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
-
-
                         .build());
 
 
 
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-31, -15), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d(-32, -10), Math.toRadians(0)))
                         //parcare
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -294,8 +342,9 @@ public class autoSpecimen4 extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d(-5, 30), Math.toRadians(45), baseVelConstraint,baseAccelConstraint)
 
 
-
                         .build());
+
+ */
 
         telemetry.addData("timp", timp.time());
         telemetry.update();
