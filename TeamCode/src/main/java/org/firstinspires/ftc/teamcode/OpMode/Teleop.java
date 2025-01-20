@@ -348,6 +348,7 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("Current State", currentState);
                 telemetry.addData("Distanta (CM) ", senzori.getDistance());
                 telemetry.addData("Are sample in gura ", senzori.hasSample());
+                telemetry.addData("Sample in range ", senzori.sampleInRange());
                 telemetry.addData("Automatizare Intake", automatizareInakte);
                 telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
                 telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());

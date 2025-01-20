@@ -24,4 +24,7 @@ public class Senzori {
     public boolean hasSample() {
         return senzorIntake.getDistance(DistanceUnit.CM) <= GLOBALS.gripper_has_sample;
     }
+    public boolean sampleInRange() {
+        return senzorIntake.getDistance(DistanceUnit.CM) <= GLOBALS.intake_distance;
+    }
 }
