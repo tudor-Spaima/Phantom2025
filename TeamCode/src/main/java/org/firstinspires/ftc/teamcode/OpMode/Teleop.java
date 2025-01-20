@@ -67,7 +67,7 @@ public class Teleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         teleopStates currentState = Init;
-        automatizareInakte automatizareInakte = Teleop.automatizareInakte.off;
+        automatizareInakte automatizareInakte = Teleop.automatizareInakte.on;
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         Lift lift = new Lift(hardwareMap);
@@ -321,7 +321,7 @@ public class Teleop extends LinearOpMode {
             }
 
 
-            lift.manualControl(gamepad2.left_stick_y, 60);
+           // lift.manualControl(gamepad2.left_stick_y, 60);
             lift.manualEncodersReset(gamepad2.touchpad);
 
             if (gamepad2.right_bumper) {
@@ -340,6 +340,7 @@ public class Teleop extends LinearOpMode {
                 } else {
                     automatizareInakte = Teleop.automatizareInakte.on;
                 }
+            }
 
 
                 telemetry.addData("Runtime", getRuntime());
@@ -360,4 +361,3 @@ public class Teleop extends LinearOpMode {
     }
 
 
-}
