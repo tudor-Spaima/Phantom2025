@@ -324,7 +324,7 @@ public class Teleop extends LinearOpMode {
             }
 
 
-            lift.manualControl(gamepad2.left_stick_x, 75);
+            lift.manualControl(gamepad2.left_stick_y, 60);
             lift.manualEncodersReset(gamepad2.touchpad);
 
             if(gamepad2.right_bumper){

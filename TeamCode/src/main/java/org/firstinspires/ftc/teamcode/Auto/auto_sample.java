@@ -253,29 +253,29 @@ public class auto_sample extends LinearOpMode {
                         })
                         .build());
 
-        Actions.runBlocking(
-
-                drive.actionBuilder(new Pose2d(new Vector2d(14, 15), Math.toRadians(0)))
-                        .afterTime(0, ()->{
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-                            arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
-                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
-                            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
-                        })
-                        .strafeToLinearHeading(new Vector2d(37, 10), Math.toRadians(90))
-
-                        .strafeToLinearHeading(new Vector2d(70, -6), Math.toRadians(90))
-
-
-                        .afterTime(0, ()->{
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-                        })
-
-                                .build());
+//        Actions.runBlocking(
+//
+//                drive.actionBuilder(new Pose2d(new Vector2d(14, 15), Math.toRadians(0)))
+//                        .afterTime(0, ()->{
+//                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+//                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+//                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
+//                            arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
+//                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+//                            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
+//                        })
+//                        .strafeToLinearHeading(new Vector2d(37, 10), Math.toRadians(90))
+//
+//                        .strafeToLinearHeading(new Vector2d(70, -6), Math.toRadians(90))
+//
+//
+//                        .afterTime(0, ()->{
+//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+//                        })
+//
+//                                .build());
 
 
 
