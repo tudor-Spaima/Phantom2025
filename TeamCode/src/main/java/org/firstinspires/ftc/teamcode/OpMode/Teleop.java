@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.Lift;
+import org.firstinspires.ftc.teamcode.robit.Senzori;
 
 
 class DriveController implements Runnable {
@@ -58,16 +59,21 @@ public class Teleop extends LinearOpMode {
      enum teleopStates{
         Intake, Score, Specimen, SpecimenTEAVA ,Init
     }
+    enum automatizareInakte{
+         on, off
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         teleopStates currentState = Init;
+        automatizareInakte automatizareInakte = Teleop.automatizareInakte.off;
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         Lift lift = new Lift(hardwareMap);
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);
+        Senzori senzori = new Senzori(hardwareMap);
 
         DriveController driveController = new DriveController(telemetry, gamepad1, drive, extendo, hardwareMap);
         Thread driveControllerThread = new Thread(driveController);
@@ -150,6 +156,42 @@ public class Teleop extends LinearOpMode {
                         else{
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                         }
+
+
+                    switch (automatizareInakte){
+                        case on:
+                            if(senzori.hasSample()){
+                                lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
+                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
+                                arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
+                                arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
+
+                                sleep(300);
+                                extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
+
+                                sleep(300);
+
+                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Transfer);
+                                sleep(400);
+                                arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+                                sleep(100);
+                                arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+
+                                sleep(200);
+                                extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+                                arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
+                                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+
+                                currentState = Score;
+                            }
+
+                            break;
+                        case off:
+                            break;
+                        }
+
 
 
                     //transfer
@@ -282,20 +324,20 @@ public class Teleop extends LinearOpMode {
             }
 
 
-/*
-            if(gamepad2.left_stick_x>1 || gamepad2.left_stick_x<-1){
-                lift.manualControl(gamepad2.left_stick_y, 75);
-            }
-*/
-            lift.manualEncodersReset(gamepad2.dpad_down);
+            lift.manualControl(gamepad2.left_stick_x, 75);
+            lift.manualEncodersReset(gamepad2.touchpad);
 
-            if(gamepad2.left_bumper){
-                lift.goToPos(1950, 1, lift.CulisantaDreapta);
-                lift.goToPos(1950, 1, lift.CulisantaStanga);
-            }
             if(gamepad2.right_bumper){
-                lift.goToPos(1000, 1, lift.CulisantaDreapta);
-                lift.goToPos(1000, 1, lift.CulisantaStanga);
+                lift.goToPos( 1900, 1, lift.CulisantaDreapta);
+                lift.goToPos( 1900, 1, lift.CulisantaStanga);
+            }
+            if(gamepad2.left_bumper){
+                lift.goToPos( 0, 1, lift.CulisantaDreapta);
+                lift.goToPos( 0, 1, lift.CulisantaStanga);
+            }
+
+            if(gamepad2.dpad_down){
+                automatizareInakte = Teleop.automatizareInakte.on;
             }
 
 
@@ -303,6 +345,11 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Runtime", getRuntime());
             telemetry.addData("Drive Thread Alive", driveControllerThread.isAlive());
             telemetry.addData("Current State", currentState);
+            telemetry.addData("Distanta (CM) ", senzori.getDistance());
+            telemetry.addData("Are sample in gura ", senzori.hasSample());
+            telemetry.addData("Automatizare Intake", automatizareInakte);
+            telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
+            telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
             telemetry.update();
 
             }
@@ -310,5 +357,6 @@ public class Teleop extends LinearOpMode {
         driveControllerThread.interrupt();
 
     }
+
 
 }
