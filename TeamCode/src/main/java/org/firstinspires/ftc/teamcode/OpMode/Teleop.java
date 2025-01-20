@@ -341,7 +341,14 @@ public class Teleop extends LinearOpMode {
             }
 
             if(gamepad2.dpad_down){
-                automatizareInakte = Teleop.automatizareInakte.on;
+                if(automatizareInakte == Teleop.automatizareInakte.on){
+                automatizareInakte = Teleop.automatizareInakte.off;
+
+                }
+                else{
+                    automatizareInakte = Teleop.automatizareInakte.on;
+                }
+
             }
 
 

@@ -61,8 +61,8 @@ public class Lift extends GLOBALS {
     }
 
     public void manualControl(double increment, double ratio){
-        goToPos((int) (CulisantaDreapta.getCurrentPosition() + (increment*ratio)), 1, CulisantaDreapta);
-        goToPos((int) (CulisantaStanga.getCurrentPosition() + (increment*ratio)), 1, CulisantaStanga);
+        goToPos((int) (CulisantaDreapta.getCurrentPosition() - (increment*ratio)), 1, CulisantaDreapta);
+        goToPos((int) (CulisantaStanga.getCurrentPosition() - (increment*ratio)), 1, CulisantaStanga);
     }
 
     public void manualEncodersReset(boolean reset){
