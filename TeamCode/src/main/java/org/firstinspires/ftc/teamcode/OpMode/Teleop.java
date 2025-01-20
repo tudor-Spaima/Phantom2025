@@ -124,6 +124,42 @@ public class Teleop extends LinearOpMode {
                     if(gamepad1.square) {
                         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                         sleep(200);
+
+
+                        switch (automatizareInakte){
+                            case on:
+                                if(senzori.hasSample()){
+                                    lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                                    arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
+                                    arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
+                                    arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
+                                    arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
+
+                                    sleep(300);
+                                    extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
+
+                                    sleep(300);
+
+                                    arms.updateBratScorePosition(GLOBALS.brat_score_positions.Transfer);
+                                    sleep(400);
+                                    arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+                                    sleep(100);
+                                    arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+                                    arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+
+                                    sleep(200);
+                                    extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+                                    arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
+                                    arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+
+                                    currentState = Score;
+                                }
+
+                                break;
+                            case off:
+                                break;
+                        }
+
                     }
                     if (gamepad1.circle){
                         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
@@ -158,39 +194,7 @@ public class Teleop extends LinearOpMode {
                         }
 
 
-                    switch (automatizareInakte){
-                        case on:
-                            if(senzori.hasSample()){
-                                lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-                                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
-                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-                                arms.updatePivotPosition(GLOBALS.pivot_positions.Transfer);
-                                arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
-                                sleep(300);
-                                extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Transfer);
-
-                                sleep(300);
-
-                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Transfer);
-                                sleep(400);
-                                arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
-                                sleep(100);
-                                arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-
-                                sleep(200);
-                                extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-                                arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
-                                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-
-                                currentState = Score;
-                            }
-
-                            break;
-                        case off:
-                            break;
-                        }
 
 
 

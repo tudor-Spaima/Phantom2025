@@ -87,7 +87,7 @@ public class GLOBALS {
 
     //parametrii senzori
     public static final double intake_distance = 0.01;
-    public static final double gripper_has_sample = 0.73;
+    public static final double gripper_has_sample = 0.1;
 
 
 
