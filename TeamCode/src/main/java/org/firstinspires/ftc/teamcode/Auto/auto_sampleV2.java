@@ -72,12 +72,13 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0, ( ) -> {
                             arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
                         })
-                        .build());
+                        .build())
+                ;
 
 
         //colectare sample 1
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
                 .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
@@ -95,7 +96,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //scorare sample 1
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -115,7 +116,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
                             sleep(200);
-                            //lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
 
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
@@ -124,17 +125,17 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
-//                        .afterTime( 2, ( ) -> {
-//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-//                            sleep(400);
-//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-//                                                 })
+                        .afterTime( 2, ( ) -> {
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+                            sleep(400);
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                                                 })
                         .build());
 
 
         //colectare sample 2
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -153,7 +154,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //scorare sample 2
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -173,7 +174,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
                             sleep(200);
-                            //lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
 
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
@@ -182,18 +183,18 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
-//                        .afterTime( 2, ( ) -> {
-//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-//                            sleep(400);
-//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-//                                                 })
+                        .afterTime( 2, ( ) -> {
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+                            sleep(400);
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                                                 })
                         .build());
 
 
 
         //colectare sample 3
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -212,7 +213,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //scorare sample 3
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(drive.pose.position.x,drive.pose.position.y,drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -232,7 +233,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
                             sleep(200);
-                            //lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
 
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
@@ -241,11 +242,11 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
-//                        .afterTime( 2, ( ) -> {
-//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-//                            sleep(400);
-//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-//                                                 })
+                        .afterTime( 2, ( ) -> {
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+                            sleep(400);
+                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
+                                                 })
                         .build());
 
 
