@@ -37,6 +37,7 @@ public class auto_sampleV2 extends LinearOpMode {
         Senzori senzori = new Senzori(hardwareMap);
 
         double timpMinim = 1;
+        double pas = 3.0;
         int rep = 0;
 
         //INITIALIZARE
@@ -407,7 +408,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
 
 
-                                    .strafeToLinearHeading( new Vector2d( drive.pose.position.x + 3, drive.pose.position.y ), drive.pose.heading.toDouble() )
+                                    .strafeToLinearHeading( new Vector2d( drive.pose.position.x + pas, drive.pose.position.y ), drive.pose.heading.toDouble() )
 
                                     .afterTime( 0, ( ) -> {
                                         new Thread( ( ) -> {
@@ -462,14 +463,17 @@ public class auto_sampleV2 extends LinearOpMode {
                         break;
                     }else{
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
-
                     }
+
+                    if(timp.time() <= (30-timpMinim)){break;}
+                    if(drive.pose.position.x >= 40){ break;}
+
+
                     sleep( 300 );
                 }
 
                 //parcare
                 Actions.runBlocking(
-
                         drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
 
                         .afterTime( 0, ( ) -> {
@@ -486,24 +490,13 @@ public class auto_sampleV2 extends LinearOpMode {
                         } )
 
                         .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(90))
-
                         .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90))
-
-
                         .build());
             }
-
-
 
         }
 
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-
-
-
-
-
-
 
 
         telemetry.addData("timp", timp.time());
