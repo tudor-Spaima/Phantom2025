@@ -122,7 +122,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             }).start();
                         })
 
-                        .strafeToLinearHeading(new Vector2d( 1, 1), Math.toRadians( 0 ) )
+                        .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -186,7 +186,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             }).start();
                         })
 
-                        .strafeToLinearHeading(new Vector2d(1, 1), Math.toRadians( 0 ) )
+                        .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -224,7 +224,7 @@ public class auto_sampleV2 extends LinearOpMode {
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
-                        .afterTime(0, ()->{
+                        .afterTime(0, ()->{ new Thread(()-> {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
@@ -247,9 +247,10 @@ public class auto_sampleV2 extends LinearOpMode {
 
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Score);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+                            }).start();
                         })
 
-                        .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
+                        .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
