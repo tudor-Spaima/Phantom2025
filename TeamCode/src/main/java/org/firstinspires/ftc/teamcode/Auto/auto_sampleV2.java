@@ -400,7 +400,7 @@ public class auto_sampleV2 extends LinearOpMode {
                 arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
 
-                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
+                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
 
                 while (true) {
 
@@ -412,12 +412,13 @@ public class auto_sampleV2 extends LinearOpMode {
 
                                     .afterTime( 0, ( ) -> {
                                         new Thread( ( ) -> {
-                                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
                                         } ).start();
                                     } )
                                     .build() );
                     rep++;
 
+                    arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
+                    sleep( 400 );
                     if(senzori.hasSample()) {
                         arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Inchis );
                         Actions.runBlocking(
