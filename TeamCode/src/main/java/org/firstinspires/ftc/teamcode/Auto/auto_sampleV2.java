@@ -292,6 +292,8 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
+        sleep( 400 );
+
 
         //incearca fara extendo
         if(senzori.hasSample()){
@@ -337,6 +339,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                             .build());
         }else{
+            //incearca cu extendo
             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lung);
             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Extended);
@@ -344,6 +347,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
+            sleep( 400 );
 
             if(senzori.hasSample()) {
                 arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Inchis );
@@ -391,7 +395,7 @@ public class auto_sampleV2 extends LinearOpMode {
             }else {
 
                 arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
-                arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lung);
+                arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                 extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Retracted);
                 arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
@@ -456,8 +460,14 @@ public class auto_sampleV2 extends LinearOpMode {
                                         .build() );
 
                         break;
+                    }else{
+                        arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
+
                     }
+                    sleep( 300 );
                 }
+
+                //parcare
                 Actions.runBlocking(
 
                         drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
@@ -475,9 +485,9 @@ public class auto_sampleV2 extends LinearOpMode {
                             } ).start();
                         } )
 
-                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(270))
+                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(90))
 
-                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
+                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90))
 
 
                         .build());
