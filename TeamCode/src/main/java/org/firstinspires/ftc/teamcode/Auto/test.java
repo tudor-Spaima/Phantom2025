@@ -73,7 +73,7 @@ public class test extends LinearOpMode {
                 drive.actionBuilder(start)
                         .strafeToConstantHeading(new Vector2d(18, 34.1))
                         .build());
-        sleep( 30000 );
+        sleep( 3000 );
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         .strafeToConstantHeading(new Vector2d(0, 0))

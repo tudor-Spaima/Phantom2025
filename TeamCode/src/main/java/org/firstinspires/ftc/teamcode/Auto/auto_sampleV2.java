@@ -59,8 +59,8 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
         //preload
-        TrajectoryActionBuilder preload = drive.actionBuilder(start)
-
+        Actions.runBlocking(
+                drive.actionBuilder(start)
                         .afterTime(0.7, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -72,12 +72,13 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0, ( ) -> {
                             arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
                         })
+                        .build())
                 ;
 
 
         //colectare sample 1
-        TrajectoryActionBuilder colectare_sample1 = preload.endTrajectory().fresh()
-
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                 .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
@@ -90,11 +91,12 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
                             sleep(300);
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
-                        });
+                        })
+                        .build());
 
         //scorare sample 1
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(23, 29), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -133,7 +135,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //colectare sample 2
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(17, 34), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -152,7 +154,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //scorare sample 2
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(20, 18), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -192,7 +194,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //colectare sample 3
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new  Vector2d(17, 34), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -211,7 +213,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
         //scorare sample 3
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(37, 24), Math.toRadians(90)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
