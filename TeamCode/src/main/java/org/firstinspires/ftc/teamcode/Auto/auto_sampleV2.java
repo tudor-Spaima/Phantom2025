@@ -95,7 +95,6 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0.3, ( ) -> {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                         })
-                        .waitSeconds(1)
                         .build());
 
         //scorare sample 1
@@ -130,7 +129,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
-                        .afterTime( 2, ( ) -> {
+                        .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                             sleep(400);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
@@ -194,7 +193,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
-                        .afterTime( 2, ( ) -> {
+                        .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                             sleep(400);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
@@ -258,7 +257,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
-                        .afterTime( 2, ( ) -> {
+                        .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                             sleep(400);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
@@ -331,7 +330,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                             .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
-                            .afterTime( 2, ( ) -> {
+                            .afterTime( 1, ( ) -> {
                                 arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                                 sleep(400);
                                 arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
@@ -385,7 +384,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                                 .strafeToLinearHeading( new Vector2d( 8.5, 24 ), Math.toRadians( -45 ) )
 
-                                .afterTime( 2, ( ) -> {
+                                .afterTime( 1, ( ) -> {
                                     arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
                                     sleep( 400 );
                                     arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
@@ -453,7 +452,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                                         .strafeToLinearHeading( new Vector2d( 8.5, 24 ), Math.toRadians( -45 ) )
 
-                                        .afterTime( 2, ( ) -> {
+                                        .afterTime( 1, ( ) -> {
                                             arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
                                             sleep( 400 );
                                             arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
