@@ -94,9 +94,8 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0.3, ( ) -> {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                         })
-
+                        .waitSeconds(1)
                         .build());
-        sleep( 300 );
 
         //scorare sample 1
         Actions.runBlocking(
@@ -159,7 +158,6 @@ public class auto_sampleV2 extends LinearOpMode {
                         })
 
                         .build());
-        sleep( 300 );
 
 
         //scorare sample 2
@@ -224,7 +222,6 @@ public class auto_sampleV2 extends LinearOpMode {
                         })
 
                         .build());
-        sleep( 300 );
 
         //scorare sample 3
         Actions.runBlocking(
