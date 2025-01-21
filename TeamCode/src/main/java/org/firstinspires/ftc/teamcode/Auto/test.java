@@ -54,45 +54,31 @@ public class test extends LinearOpMode {
         ));
         AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
 
-
-
-
-        TrajectoryActionBuilder preload = drive.actionBuilder(start)
-                .strafeToConstantHeading(new Vector2d(18, 34.1))
-                .strafeToConstantHeading(new Vector2d(15, 34.1));
-
-        TrajectoryActionBuilder colectare1 = preload.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(23, 29));
-
-        TrajectoryActionBuilder score1 = colectare1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
-
-        TrajectoryActionBuilder colectare2 = score1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0));
-
-        TrajectoryActionBuilder score2 = colectare2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
-
-        TrajectoryActionBuilder colectare3 = score2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90));
-
-        TrajectoryActionBuilder score3 = colectare3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
-
-
         waitForStart();
         timp.startTime();
 
-        preload.build();
-        colectare1.build();
-        score1.build();
-        colectare2.build();
-        score2.build();
-        colectare3.build();
-        score3.build();
+//        Actions.runBlocking(
+//                drive.actionBuilder(start)
+//                        .strafeToConstantHeading(new Vector2d(18, 34.1))
+//                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+//                        .strafeToConstantHeading(new Vector2d(23, 29))
+//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
+//                        .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0))
+//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
+//                        .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90))
+//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
+//                        .build());
 
+        Actions.runBlocking(
+                drive.actionBuilder(start)
+                        .strafeToConstantHeading(new Vector2d(18, 34.1))
+                        .build());
+        sleep( 30000 );
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                        .strafeToConstantHeading(new Vector2d(0, 0))
 
-
+                        .build());
 
 
 
