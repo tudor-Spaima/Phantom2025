@@ -123,7 +123,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(8, 24), Math.toRadians(-45))
+                        .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -181,7 +181,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(8, 24), Math.toRadians(-45))
+                        .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -240,7 +240,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(8, 24), Math.toRadians(-45))
+                        .strafeToLinearHeading(new Vector2d(15, 34.1), Math.toRadians( 0 ) )
 
                         .afterTime( 2, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
@@ -250,8 +250,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                                                  .build());
 
-        extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-        sleep(100);
+
 
 
         telemetry.addData("timp", timp.time());
