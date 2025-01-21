@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.AngularVelConstraint;
 import com.acmerobotics.roadrunner.MinVelConstraint;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.VelConstraint;
@@ -43,7 +44,7 @@ public class auto_sampleV2 extends LinearOpMode {
         arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
-        Pose2d start = new Pose2d(new Vector2d (0,0),Math.toRadians(0));
+        Pose2d start = new Pose2d(0,0,Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, start);
 
 
@@ -58,8 +59,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
         //preload
-        Actions.runBlocking(
-                drive.actionBuilder(start)
+        TrajectoryActionBuilder preload = drive.actionBuilder(start)
 
                         .afterTime(0.7, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
@@ -72,14 +72,13 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0, ( ) -> {
                             arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
                         })
+                ;
 
-                        .build());
 
         //colectare sample 1
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(15, 34.1), Math.toRadians(0)))
+        TrajectoryActionBuilder colectare_sample1 = preload.endTrajectory().fresh()
 
-                        .afterTime(0, ()->{
+                .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
@@ -90,8 +89,8 @@ public class auto_sampleV2 extends LinearOpMode {
                         .afterTime( 0, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
                             sleep(300);
-                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);                        })
-                        .build());
+                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
+                        });
 
         //scorare sample 1
         Actions.runBlocking(

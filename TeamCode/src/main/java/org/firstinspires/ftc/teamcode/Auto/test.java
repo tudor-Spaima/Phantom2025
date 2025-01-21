@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.AngularVelConstraint;
 import com.acmerobotics.roadrunner.MinVelConstraint;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.VelConstraint;
@@ -53,42 +54,48 @@ public class test extends LinearOpMode {
         ));
         AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
 
+
+
+
+        TrajectoryActionBuilder preload = drive.actionBuilder(start)
+                .strafeToConstantHeading(new Vector2d(18, 34.1))
+                .strafeToConstantHeading(new Vector2d(15, 34.1));
+
+        TrajectoryActionBuilder colectare1 = preload.endTrajectory().fresh()
+                .strafeToConstantHeading(new Vector2d(23, 29));
+
+        TrajectoryActionBuilder score1 = colectare1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
+
+        TrajectoryActionBuilder colectare2 = score1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0));
+
+        TrajectoryActionBuilder score2 = colectare2.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
+
+        TrajectoryActionBuilder colectare3 = score2.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90));
+
+        TrajectoryActionBuilder score3 = colectare3.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0));
+
+
         waitForStart();
         timp.startTime();
 
-
-        //preload
-        Actions.runBlocking(
-                drive.actionBuilder(start)
-                        .afterTime(0.7, ()->{
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
-                        })
-
-                        .strafeToConstantHeading(new Vector2d(18, 34.1))
-                        .strafeToConstantHeading(new Vector2d(15, 34.1))
-                        .afterTime( 0, ( ) -> {
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-
-                        })
-                        .afterTime( 0.3, ( ) -> {
-
-                            arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-                        })
-
-                        .strafeToConstantHeading(new Vector2d(23, 29))
-                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-                        .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0))
-                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-                        .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90))
-                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-
-                        .build());
+        preload.build();
+        colectare1.build();
+        score1.build();
+        colectare2.build();
+        score2.build();
+        colectare3.build();
+        score3.build();
 
 
 
 
-        extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-        sleep(100);
+
+
 
 
         telemetry.addData("timp", timp.time());
