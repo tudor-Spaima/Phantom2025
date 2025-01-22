@@ -359,11 +359,10 @@ public class Teleop extends LinearOpMode {
 
                 //add telemetry from sensor red green blue
 
-                telemetry.addData( "red", senzori.senzorIntakeCuloare.red());
-                telemetry.addData( "green", senzori.senzorIntakeCuloare.green());
-                telemetry.addData( "blue", senzori.senzorIntakeCuloare.blue());
-                telemetry.addData( "alpha", senzori.senzorIntakeCuloare.alpha());
-                telemetry.addData( "argb", senzori.senzorIntakeCuloare.argb());
+                telemetry.addData( "galbin",
+                        (senzori.senzorIntakeCuloare.red()>=145 &&
+                                senzori.senzorIntakeCuloare.green()>=145  ? "da" : "nu"));
+
                 telemetry.update();
 
             }
