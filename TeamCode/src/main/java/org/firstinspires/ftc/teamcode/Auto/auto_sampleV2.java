@@ -37,7 +37,7 @@ public class auto_sampleV2 extends LinearOpMode {
         Senzori senzori = new Senzori(hardwareMap);
 
         double timpMinim = 1;
-        double pas = 3.0;
+        double pas = 5.0;
         int rep = 0;
 
         //INITIALIZARE
@@ -466,7 +466,7 @@ public class auto_sampleV2 extends LinearOpMode {
                     }
 
                     if(timp.time() <= (30-timpMinim)){break;}
-                    if(drive.pose.position.x >= 40){ break;}
+                    if(drive.pose.position.x >= 75){ break;}
 
 
                     sleep( 300 );
