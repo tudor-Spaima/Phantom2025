@@ -36,7 +36,7 @@ public class auto_sampleV2 extends LinearOpMode {
         ElapsedTime timp = new ElapsedTime();
         Senzori senzori = new Senzori(hardwareMap);
 
-        double timpMinim = 6;
+        double timpMinim = 2;
         double pas = 5.0;
         int rep = 0;
 
@@ -391,7 +391,7 @@ public class auto_sampleV2 extends LinearOpMode {
                     sleep( 300 );
                     arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
 
-                    if(senzori.hasSample()) {
+                    if(senzori.hasSample() ){
                         Actions.runBlocking(
                                 drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
 
@@ -450,7 +450,7 @@ public class auto_sampleV2 extends LinearOpMode {
                 }
 
                 //conditii de oprire
-                if(rep == 3 ||(drive.pose.position.x >= 75) ){break;}
+                if((timp.time() >= (30-timpMinim)) || (drive.pose.position.x >= 75) ){break;}
 
 
                 sleep( 300 );
