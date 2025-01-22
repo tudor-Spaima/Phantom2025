@@ -356,7 +356,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
-            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
+            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.mai_asea);
             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
 
@@ -387,7 +387,7 @@ public class auto_sampleV2 extends LinearOpMode {
                                             arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
                                             arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
                                             arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
-                                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.mai_asea);
+                                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
 
                                             sleep( 300 );
                                             extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
