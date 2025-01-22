@@ -51,6 +51,14 @@ public class auto_sampleV2 extends LinearOpMode {
         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
 
+
+        VelConstraint velPuternic = new MinVelConstraint(Arrays.asList(
+                new TranslationalVelConstraint(120),
+                new AngularVelConstraint(Math.PI / 2)
+        ));
+        AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
+
+
         Pose2d start = new Pose2d(0,0,Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, start);
 
@@ -282,7 +290,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             }).start();
                         })
 //
-                        .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(270))
+                        .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(270), velPuternic, accelPuternic)
                         .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
 
 
@@ -379,8 +387,10 @@ public class auto_sampleV2 extends LinearOpMode {
                 arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
                 sleep( 400 );
                 if(senzori.hasSample()) {
+                    arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
+                    sleep( 300 );
+                    arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
 
-                    arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Inchis );
                     if(senzori.hasSample()) {
                         Actions.runBlocking(
                                 drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
@@ -463,8 +473,8 @@ public class auto_sampleV2 extends LinearOpMode {
                         } ).start();
                     } )
 
-                    .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(90))
-                    .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90))
+                    .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(90), velPuternic, accelPuternic)
+                    .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90), velPuternic, accelPuternic)
                     .build());
         }
 
