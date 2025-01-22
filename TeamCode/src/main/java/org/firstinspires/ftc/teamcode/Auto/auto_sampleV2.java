@@ -36,7 +36,7 @@ public class auto_sampleV2 extends LinearOpMode {
         ElapsedTime timp = new ElapsedTime();
         Senzori senzori = new Senzori(hardwareMap);
 
-        double timpMinim = -60;
+        double timpMinim = 6;
         double pas = 5.0;
         int rep = 0;
 
@@ -353,7 +353,6 @@ public class auto_sampleV2 extends LinearOpMode {
 
             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
-            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Retracted);
             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
 
@@ -367,10 +366,6 @@ public class auto_sampleV2 extends LinearOpMode {
 
                                 .strafeToLinearHeading( new Vector2d( drive.pose.position.x + pas, drive.pose.position.y ), drive.pose.heading.toDouble() )
 
-                                .afterTime( 0, ( ) -> {
-                                    new Thread( ( ) -> {
-                                    } ).start();
-                                } )
                                 .build() );
                 rep++;
 
