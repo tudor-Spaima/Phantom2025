@@ -69,10 +69,10 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
 
-//                        .strafeToConstantHeading(new Vector2d(18, 34.1))
-//                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+                        .strafeToConstantHeading(new Vector2d(18, 34.1))
+                        .strafeToConstantHeading(new Vector2d(15, 34.1))
 
-                        .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
+                        //.strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
 
                         .afterTime( 0, ( ) -> {
@@ -356,7 +356,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
 
             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
-            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.mai_asea);
+            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lung);
             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
 
 
@@ -378,56 +378,59 @@ public class auto_sampleV2 extends LinearOpMode {
                 if(senzori.hasSample()) {
 
                     arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Inchis );
-                    Actions.runBlocking(
-                            drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
+                    if(senzori.hasSample()) {
+                        Actions.runBlocking(
+                                drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
 
-                                    .afterTime( 0, ( ) -> {
-                                        new Thread( ( ) -> {
-                                            lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
-                                            arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
-                                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
-                                            arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
-                                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
+                                        .afterTime( 0, ( ) -> {
+                                            new Thread( ( ) -> {
+                                                lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
+                                                arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
+                                                arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
+                                                arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
+                                                arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
 
-                                            sleep( 300 );
-                                            extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
+                                                sleep( 300 );
+                                                extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
 
-                                            sleep( 300 );
-                                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Transfer );
-                                            sleep( 400 );
-                                            arms.updateGripperScorePosition( GLOBALS.grippers_positions.Inchis );
-                                            sleep( 100 );
-                                            arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
+                                                sleep( 300 );
+                                                arms.updateBratScorePosition( GLOBALS.brat_score_positions.Transfer );
+                                                sleep( 400 );
+                                                arms.updateGripperScorePosition( GLOBALS.grippers_positions.Inchis );
+                                                sleep( 100 );
+                                                arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
 
-                                            sleep( 200 );
-                                            lift.updateLiftPosition( GLOBALS.LiftPositions.Basket2 );
-                                            extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
+                                                sleep( 200 );
+                                                lift.updateLiftPosition( GLOBALS.LiftPositions.Basket2 );
+                                                extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
 
-                                            arms.updatePivotPosition( GLOBALS.pivot_positions.Score );
-                                            arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
-                                        } ).start();
-                                    } )
+                                                arms.updatePivotPosition( GLOBALS.pivot_positions.Score );
+                                                arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
+                                            } ).start();
+                                        } )
 
-                                    .strafeToLinearHeading( new Vector2d( 8.5, 24 ), Math.toRadians( -45 ) )
+                                        .strafeToLinearHeading( new Vector2d( 8.5, 24 ), Math.toRadians( -45 ) )
 
-                                    .afterTime( 0, ( ) -> {
-                                        new Thread( ( ) -> {
-                                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
+                                        .afterTime( 0, ( ) -> {
+                                            new Thread( ( ) -> {
+                                                arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
 
-                                        } ).start();
+                                            } ).start();
 
-                                    } )
-                                    .afterTime( 0.4, ( ) -> {
-                                        new Thread( ( ) -> {
-                                            arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-                                        } ).start();
+                                        } )
+                                        .afterTime( 0.4, ( ) -> {
+                                            new Thread( ( ) -> {
+                                                arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
+                                            } ).start();
 
-                                    } )
+                                        } )
 
-                                    .build() );
+                                        .build() );
+                        break;
+                    }
 
                     sleep( 400 );
-                    break;
+
 
                 }else{
                     arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
