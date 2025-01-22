@@ -69,8 +69,11 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
 
-                        .strafeToConstantHeading(new Vector2d(18, 34.1))
-                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+//                        .strafeToConstantHeading(new Vector2d(18, 34.1))
+//                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+
+                        .strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
+
 
                         .afterTime( 0, ( ) -> {
                             arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
@@ -430,7 +433,7 @@ public class auto_sampleV2 extends LinearOpMode {
                 }
 
                 //conditii de oprire
-                if((timp.time() >= (30-timpMinim)) ||(drive.pose.position.x >= 75) ){break;}
+                if(rep == 3 ||(drive.pose.position.x >= 75) ){break;}
 
 
                 sleep( 300 );
