@@ -278,18 +278,16 @@ public class auto_sampleV2 extends LinearOpMode {
                             }).start();
                         })
 //
-//                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(270))
-//                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
-                        //spline test
-                        .splineToLinearHeading(new Pose2d(40, 15, Math.toRadians( 270 )), Math.PI / 2)
-                        .splineToConstantHeading(new Vector2d(55, -8.5), Math.PI / 2)
+                        .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(270))
+                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
+
 
 
 
                         .afterTime(0, ()->{ new Thread(()-> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
 
-                        }).start();
+                            }).start();
                         })
 
                         .build());
@@ -480,7 +478,7 @@ public class auto_sampleV2 extends LinearOpMode {
                     }
 
                     //conditii de oprire
-                    if((timp.time() <= (30-timpMinim)) ||(drive.pose.position.x >= 75) ){break;}
+                    if((timp.time() >= (30-timpMinim)) ||(drive.pose.position.x >= 75) ){break;}
 
 
                     sleep( 300 );
