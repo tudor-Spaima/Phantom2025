@@ -281,7 +281,9 @@ public class auto_sampleV2 extends LinearOpMode {
 //                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(270))
 //                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
                         //spline test
-                        .splineToSplineHeading(new Pose2d(55, -8.5, Math.toRadians( 270 )), Math.PI / 2)
+                        .splineToLinearHeading(new Pose2d(40, 15, Math.toRadians( 270 )), Math.PI / 2)
+                        .splineToConstantHeading(new Vector2d(55, -8.5), Math.PI / 2)
+
 
 
                         .afterTime(0, ()->{ new Thread(()-> {
