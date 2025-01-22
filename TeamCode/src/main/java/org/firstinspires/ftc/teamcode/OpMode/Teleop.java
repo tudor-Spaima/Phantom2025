@@ -26,13 +26,15 @@ class DriveController implements Runnable {
     Gamepad gp1;
     Extendo extendo;
     HardwareMap hm;
+    Senzori senzori;
     volatile double driveSpeedMultiplier ;
-    public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive, Extendo extendo, HardwareMap hm) {
+    public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive, Extendo extendo,Senzori senzori, HardwareMap hm) {
         this.telemetry = telemetry;
         this.gp1 = gp1;
         this.drive = drive;
         this.extendo = extendo;
         this.hm = hm;
+        this.senzori = senzori;
     }
 
 
@@ -40,7 +42,9 @@ class DriveController implements Runnable {
     public void run() {
         extendo = new Extendo(this.hm);
         while (true) {
-            double speedMultiplier = extendo.isExtendoExtended() ? 0.5 : 1.0;
+
+            double speedMultiplier = senzori.hasSample() ? 1.0 :
+                    (extendo.isExtendoExtended() ? 0.5 : 1.0);
 
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
@@ -75,7 +79,7 @@ public class Teleop extends LinearOpMode {
         Arms arms = new Arms(hardwareMap);
         Senzori senzori = new Senzori(hardwareMap);
 
-        DriveController driveController = new DriveController(telemetry, gamepad1, drive, extendo, hardwareMap);
+        DriveController driveController = new DriveController(telemetry, gamepad1, drive, extendo, senzori, hardwareMap);
         Thread driveControllerThread = new Thread(driveController);
 
 

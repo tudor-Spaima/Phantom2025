@@ -36,7 +36,7 @@ public class auto_sampleV2 extends LinearOpMode {
         ElapsedTime timp = new ElapsedTime();
         Senzori senzori = new Senzori(hardwareMap);
 
-        double timpMinim = 1;
+        double timpMinim = -60;
         double pas = 5.0;
         int rep = 0;
 
@@ -277,9 +277,18 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lung);
                             }).start();
                         })
+//
+//                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(270))
+//                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
+                        //spline test
+                        .splineToSplineHeading(new Pose2d(55, -8.5, Math.toRadians( 270 )), Math.PI / 2)
 
-                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(270))
-                        .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(270))
+
+                        .afterTime(0, ()->{ new Thread(()-> {
+                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
+
+                        }).start();
+                        })
 
                         .build());
 
@@ -420,6 +429,7 @@ public class auto_sampleV2 extends LinearOpMode {
                     arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
                     sleep( 400 );
                     if(senzori.hasSample()) {
+
                         arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Inchis );
                         Actions.runBlocking(
                                 drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
@@ -454,9 +464,11 @@ public class auto_sampleV2 extends LinearOpMode {
                                         .strafeToLinearHeading( new Vector2d( 8.5, 24 ), Math.toRadians( -45 ) )
 
                                         .afterTime( 1, ( ) -> {
-                                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
-                                            sleep( 400 );
-                                            arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
+                                            new Thread( ( ) -> {
+                                                arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
+                                                sleep( 400 );
+                                                arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
+                                            } ).start();
                                         } )
                                         .build() );
 
@@ -465,8 +477,8 @@ public class auto_sampleV2 extends LinearOpMode {
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                     }
 
-                    if(timp.time() <= (30-timpMinim)){break;}
-                    if(drive.pose.position.x >= 75){ break;}
+                    //conditii de oprire
+                    if((timp.time() <= (30-timpMinim)) ||(drive.pose.position.x >= 75) ){break;}
 
 
                     sleep( 300 );
@@ -484,12 +496,12 @@ public class auto_sampleV2 extends LinearOpMode {
                                 arms.updateBratScorePosition(GLOBALS.brat_score_positions.Init);
                                 arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
                                 arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                                arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+                                arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                                 arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                             } ).start();
                         } )
 
-                        .strafeToLinearHeading(new Vector2d(40, 15), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(90))
                         .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90))
                         .build());
             }
