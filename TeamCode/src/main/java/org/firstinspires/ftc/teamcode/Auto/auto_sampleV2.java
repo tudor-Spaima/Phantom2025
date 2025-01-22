@@ -90,7 +90,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d( 23, 49), Math.toRadians( 0 ) )
+                        .strafeToLinearHeading(new Vector2d( 22, 29), Math.toRadians( 0 ) )
 
 
                         .afterTime( 0, ( ) -> {
@@ -311,6 +311,9 @@ public class auto_sampleV2 extends LinearOpMode {
         //incearca fara extendo
         if(senzori.hasSample()){
             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
+            sleep( 300 );
+            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
+
 
             //il scoreaza daca il are
             Actions.runBlocking(
