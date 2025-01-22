@@ -90,7 +90,8 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToConstantHeading(new Vector2d(23, 29))
+                        .strafeToLinearHeading(new Vector2d( 23, 49), Math.toRadians( 0 ) )
+
 
                         .afterTime( 0, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
@@ -386,7 +387,7 @@ public class auto_sampleV2 extends LinearOpMode {
                                             arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
                                             arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
                                             arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
-                                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
+                                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.mai_asea);
 
                                             sleep( 300 );
                                             extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
