@@ -390,7 +390,7 @@ public class auto_sampleV2 extends LinearOpMode {
                     arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                     sleep( 300 );
                     arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
-
+                    sleep( 300 );
                     if(senzori.hasSample() ){
                         Actions.runBlocking(
                                 drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
@@ -471,7 +471,7 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                         } ).start();
-                    } )
+                    })
 
                     .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(90), velPuternic, accelPuternic)
                     .strafeToLinearHeading(new Vector2d(55, -8.5), Math.toRadians(90), velPuternic, accelPuternic)

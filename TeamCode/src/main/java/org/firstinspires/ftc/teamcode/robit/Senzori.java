@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Senzori {
-    public RevColorSensorV3 senzorIntake = null;
+    public RevColorSensorV3 senzorIntake,senzorIntakeCuloare = null;
     public Senzori(HardwareMap hardwareMap) {
         senzorIntake = hardwareMap.get(RevColorSensorV3.class, "senzorIntake");
+        senzorIntakeCuloare = hardwareMap.get(RevColorSensorV3.class, "senzorIntake");
 
         KalmanFiltering kalmanFilter = new KalmanFiltering(
                 0,
@@ -27,4 +28,9 @@ public class Senzori {
     public boolean sampleInRange() {
         return senzorIntake.getDistance(DistanceUnit.CM) <= GLOBALS.intake_distance;
     }
+    public void getSampleColor() {
+        senzorIntakeCuloare.getNormalizedColors();
+
+    }
+
 }

@@ -356,6 +356,14 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("Automatizare Intake", automatizareInakte);
                 telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
                 telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
+
+                //add telemetry from sensor red green blue
+
+                telemetry.addData( "red", senzori.senzorIntakeCuloare.red());
+                telemetry.addData( "green", senzori.senzorIntakeCuloare.green());
+                telemetry.addData( "blue", senzori.senzorIntakeCuloare.blue());
+                telemetry.addData( "alpha", senzori.senzorIntakeCuloare.alpha());
+                telemetry.addData( "argb", senzori.senzorIntakeCuloare.argb());
                 telemetry.update();
 
             }
