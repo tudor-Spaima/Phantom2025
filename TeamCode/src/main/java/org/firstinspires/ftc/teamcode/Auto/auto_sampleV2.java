@@ -64,7 +64,7 @@ public class auto_sampleV2 extends LinearOpMode {
         //preload
         Actions.runBlocking(
                 drive.actionBuilder(start)
-                        .afterTime(0.7, ()->{
+                        .afterTime(0.1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Basket2);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
                         })
