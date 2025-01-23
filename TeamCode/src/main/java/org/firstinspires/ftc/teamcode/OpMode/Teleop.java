@@ -333,8 +333,8 @@ public class Teleop extends LinearOpMode {
                 lift.goToPos(1900, 1, lift.CulisantaStanga);
             }
             if (gamepad2.left_bumper) {
-                lift.goToPos(0, 1, lift.CulisantaDreapta);
-                lift.goToPos(0, 1, lift.CulisantaStanga);
+                lift.goToPos(1000, 1, lift.CulisantaDreapta);
+                lift.goToPos(1000, 1, lift.CulisantaStanga);
             }
 
             if (gamepad2.dpad_down) {
@@ -344,6 +344,7 @@ public class Teleop extends LinearOpMode {
                 } else {
                     automatizareInakte = Teleop.automatizareInakte.on;
                 }
+                sleep(500);
             }
 
 

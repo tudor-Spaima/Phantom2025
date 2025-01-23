@@ -144,7 +144,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-                            sleep(400);
+                            sleep(1000);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                                                  })
                         .build());
@@ -208,7 +208,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-                            sleep(400);
+                            sleep(1000);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                                                  })
                         .build());
@@ -272,7 +272,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                         .afterTime( 1, ( ) -> {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-                            sleep(400);
+                            sleep(1000);
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                                                  })
 
@@ -357,7 +357,7 @@ public class auto_sampleV2 extends LinearOpMode {
 
                             .afterTime( 1, ( ) -> {
                                 arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-                                sleep(400);
+                                sleep(1000);
                                 arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             })
 
@@ -468,7 +468,6 @@ public class auto_sampleV2 extends LinearOpMode {
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Init);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
                         } ).start();
                     })
