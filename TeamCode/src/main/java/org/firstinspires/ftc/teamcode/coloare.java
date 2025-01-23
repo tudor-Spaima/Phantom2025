@@ -37,29 +37,31 @@ public class coloare extends OpMode {
             telemetry.update();
         }
 
-        private String detectColor(int r, int g, int b) {
-            if (isYellow(r, g, b)) {
-                return "Yellow";
-            } else if (isBlue(r, g, b)) {
-                return "Blue";
-            } else if (isRed(r, g, b)) {
-                return "Red";
-            } else {
-                return "Unknown";
-            }
-        }
 
-        private boolean isYellow(int r, int g, int b) {
-            return r > RED_THRESHOLD && g > GREEN_THRESHOLD && b < (g - TOLERANCE);
+    private String detectColor(int r, int g, int b) {
+        if (isRed(r, g, b)) {
+            return "Red";
+        } else if (isYellow(r, g, b)) {
+            return "Yellow";
+        } else if (isBlue(r, g, b)) {
+            return "Blue";
+        } else {
+            return "Unknown";
         }
+    }
 
-        private boolean isBlue(int r, int g, int b) {
-            return b > BLUE_THRESHOLD && b > r + TOLERANCE && b > g + TOLERANCE;
-        }
+    private boolean isRed(int r, int g, int b) {
+        return r > RED_THRESHOLD && r > g + (TOLERANCE + 20) && r > b + (TOLERANCE + 20);
+    }
 
-        private boolean isRed(int r, int g, int b) {
-            return r > RED_THRESHOLD && r > b + TOLERANCE && r > g + TOLERANCE;
-        }
-    
+    private boolean isYellow(int r, int g, int b) {
+        return r > RED_THRESHOLD && g > GREEN_THRESHOLD && (r - g) < (TOLERANCE - 10) && b < (g - TOLERANCE);
+    }
+
+    private boolean isBlue(int r, int g, int b) {
+        return b > BLUE_THRESHOLD && b > r + TOLERANCE && b > g + TOLERANCE;
+    }
+
+
 
 }
