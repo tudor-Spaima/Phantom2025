@@ -61,4 +61,12 @@ public class Senzori {
         }
     }
 
+    public boolean isRedOrYellow(int r, int g, int b) {
+        return isRed(r, g, b) || isYellow(r, g, b);
+    }
+
+    public boolean isBlueOrYellow(int r, int g, int b) {
+        return isBlue(r, g, b) || isYellow(r, g, b);
+    }
+
 }

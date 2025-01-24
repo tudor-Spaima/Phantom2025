@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 
 @Autonomous(name="autoSpecimen4")
-public class autoSpecimen4 extends LinearOpMode {
+public class autoSpecimenPuternic extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 

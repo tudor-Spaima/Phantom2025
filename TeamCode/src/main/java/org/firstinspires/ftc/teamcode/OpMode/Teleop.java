@@ -329,7 +329,6 @@ public class Teleop extends LinearOpMode {
             }
 
             if(gamepad2.left_stick_y != 0) {
-
                 lift.manualControl( gamepad2.left_stick_y, 60 );
                 sleep( 200 );
             }
@@ -366,7 +365,6 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("Automatizare Intake", automatizareInakte);
                 telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
                 telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
-
              */
 
 
@@ -374,12 +372,14 @@ public class Teleop extends LinearOpMode {
 
             String detectedColor = senzori.detectColor(senzori.senzorIntakeCuloare.red(), senzori.senzorIntakeCuloare.green(),senzori.senzorIntakeCuloare.blue());
             telemetry.addData("Automatizare Intake", automatizareInakte);
+            telemetry.speak( "nigger" );
             telemetry.addData("Are sample in gura ", senzori.hasSample());
             telemetry.addData("Current State", currentState);
             telemetry.addData("Detected Color", detectedColor);
             telemetry.update();
 
             }
+
 
             driveControllerThread.interrupt();
 
