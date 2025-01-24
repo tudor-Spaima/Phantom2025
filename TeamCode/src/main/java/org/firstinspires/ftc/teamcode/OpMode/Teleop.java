@@ -372,7 +372,6 @@ public class Teleop extends LinearOpMode {
 
             String detectedColor = senzori.detectColor(senzori.senzorIntakeCuloare.red(), senzori.senzorIntakeCuloare.green(),senzori.senzorIntakeCuloare.blue());
             telemetry.addData("Automatizare Intake", automatizareInakte);
-            telemetry.speak( "nigger" );
             telemetry.addData("Are sample in gura ", senzori.hasSample());
             telemetry.addData("Current State", currentState);
             telemetry.addData("Detected Color", detectedColor);
