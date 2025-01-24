@@ -200,7 +200,7 @@ public class Teleop extends LinearOpMode {
 
 
                     //transfer
-                    if (gamepad2.cross && senzori.hasSample()) {
+                    if (gamepad2.cross) {
 
                         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Transfer);
