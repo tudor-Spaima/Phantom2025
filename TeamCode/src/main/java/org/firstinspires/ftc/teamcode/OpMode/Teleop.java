@@ -66,12 +66,16 @@ public class Teleop extends LinearOpMode {
     enum automatizareInakte{
          on, off
     }
+    enum manualControl{
+        on, off
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         teleopStates currentState = Init;
         automatizareInakte automatizareInakte = Teleop.automatizareInakte.on;
+
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         Lift lift = new Lift(hardwareMap);
@@ -100,11 +104,11 @@ public class Teleop extends LinearOpMode {
 
 
         waitForStart();
-
         driveControllerThread.start();
+
         while (opModeIsActive()) {
 
-
+            //teleop state machine
             switch (currentState) {
 
                 case Init:
@@ -324,8 +328,11 @@ public class Teleop extends LinearOpMode {
                     break;
             }
 
+            if(gamepad2.left_stick_y != 0) {
 
-           // lift.manualControl(gamepad2.left_stick_y, 60);
+                lift.manualControl( gamepad2.left_stick_y, 60 );
+                sleep( 200 );
+            }
             lift.manualEncodersReset(gamepad2.touchpad);
 
             if (gamepad2.right_bumper) {
@@ -344,10 +351,12 @@ public class Teleop extends LinearOpMode {
                 } else {
                     automatizareInakte = Teleop.automatizareInakte.on;
                 }
-                sleep(500);
+                sleep(200);
             }
 
 
+
+            /*
                 telemetry.addData("Runtime", getRuntime());
                 telemetry.addData("Drive Thread Alive", driveControllerThread.isAlive());
                 telemetry.addData("Current State", currentState);
@@ -358,9 +367,15 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
                 telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
 
+             */
+
+
+
 
             String detectedColor = senzori.detectColor(senzori.senzorIntakeCuloare.red(), senzori.senzorIntakeCuloare.green(),senzori.senzorIntakeCuloare.blue());
-
+            telemetry.addData("Automatizare Intake", automatizareInakte);
+            telemetry.addData("Are sample in gura ", senzori.hasSample());
+            telemetry.addData("Current State", currentState);
             telemetry.addData("Detected Color", detectedColor);
             telemetry.update();
 
