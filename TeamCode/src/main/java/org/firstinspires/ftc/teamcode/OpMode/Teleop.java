@@ -113,6 +113,13 @@ public class Teleop extends LinearOpMode {
         DriveController driveController = new DriveController( telemetry, gamepad1, drive, extendo, senzori, hardwareMap );
         Thread driveControllerThread = new Thread( driveController );
 
+        if (driveControllerThread.isAlive()) {
+            driveController.stopThread();
+            driveControllerThread.interrupt();
+            driveControllerThread.join();
+        }
+
+
 
         waitForStart();
         driveControllerThread.start();
@@ -395,9 +402,9 @@ public class Teleop extends LinearOpMode {
         driveController.stopThread();
         driveControllerThread.interrupt();
         try {
-            driveControllerThread.join();
+            driveControllerThread.join(500);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); 
+            Thread.currentThread().interrupt();
         }
 
     }
