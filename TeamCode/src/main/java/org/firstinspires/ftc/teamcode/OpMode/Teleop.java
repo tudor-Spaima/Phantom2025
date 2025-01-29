@@ -377,7 +377,6 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Current State", currentState);
             telemetry.addData("Detected Color", detectedColor);
             telemetry.update();
-
             }
 
 
