@@ -367,7 +367,7 @@ public class Teleop extends LinearOpMode {
                 telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
              */
 
-
+///////////....//////
 
 
             String detectedColor = senzori.detectColor(senzori.senzorIntakeCuloare.red(), senzori.senzorIntakeCuloare.green(),senzori.senzorIntakeCuloare.blue());
