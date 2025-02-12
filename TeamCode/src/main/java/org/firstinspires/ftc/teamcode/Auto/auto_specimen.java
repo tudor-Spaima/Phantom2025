@@ -13,7 +13,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
@@ -24,7 +23,7 @@ import java.util.Arrays;
 
 
 @Autonomous(name="preload")
-public class preload extends LinearOpMode {
+public class auto_specimen extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
