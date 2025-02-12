@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
@@ -35,7 +36,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
         ElapsedTime timp = new ElapsedTime();
         Senzori senzori = new Senzori(hardwareMap);
 
-        double timpMinim = 2;
+        double timpMinim = 4;
         double pas = 5.0;
         int rep = 0;
 
@@ -59,7 +60,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
 
 
         Pose2d start = new Pose2d(0,0,Math.toRadians(0));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, start);
+        PinpointDrive drive = new PinpointDrive(hardwareMap, start);
 
 
 
@@ -77,7 +78,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
                         })
 
                         .strafeToConstantHeading(new Vector2d(18, 34.1))
-                        .strafeToConstantHeading(new Vector2d(15, 34.1))
+                        .strafeToConstantHeading(new Vector2d(14, 34.1))
 
                         //.strafeToLinearHeading(new Vector2d( 8.5, 24), Math.toRadians( -45 ) )
 
@@ -97,7 +98,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d( 22, 29), Math.toRadians( 0 ) )
+                        .strafeToLinearHeading(new Vector2d( 20.3, 28), Math.toRadians( 0 ) )
 
 
                         .afterTime( 0, ( ) -> {
@@ -159,7 +160,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(19, 18), Math.toRadians(0))
 
 
                         .afterTime( 0, ( ) -> {
@@ -225,7 +226,7 @@ public class auto_sample_V2_BLUE extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(35.5, 24), Math.toRadians(90))
 
                         .afterTime( 0, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);

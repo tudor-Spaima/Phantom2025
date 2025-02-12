@@ -74,6 +74,11 @@ public class Arms extends GLOBALS {
                 break;
             case SpecimenScorare:
                 brat_score.setPosition(brat_scorare_specimen_scorare);
+            case SpecimenScorareTELEOP:
+                brat_score.setPosition(brat_scorare_specimen_scorareTELEOP);
+
+
+
         }
     }
     public void updatePivotPosition(@NonNull pivot_positions position){
@@ -92,6 +97,8 @@ public class Arms extends GLOBALS {
                 break;
             case SpecimenScorare:
                 pivot.setPosition(pivot_specimen_scorare);
+            case SpecimenScorareTELEOP:
+                pivot.setPosition(pivot_specimen_scorareTELEOP);
 
         }
     }

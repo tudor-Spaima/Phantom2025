@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.Lift;
@@ -33,7 +34,7 @@ public class CONFIG  extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        PinpointDrive drive = new PinpointDrive(hardwareMap, new Pose2d(0, 0, 0));
         Lift lift = new Lift(hardwareMap);
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);

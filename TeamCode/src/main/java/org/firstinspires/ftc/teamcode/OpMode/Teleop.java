@@ -302,11 +302,11 @@ public class Teleop extends LinearOpMode {
                         sleep( 200 );
                     }
                     if (gamepad2.cross) {
-                        lift.updateLiftPosition( GLOBALS.LiftPositions.Specimen );
+                        lift.updateLiftPosition( GLOBALS.LiftPositions.SpecimenTELEOP );
                         extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
                         arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
-                        arms.updateBratScorePosition( GLOBALS.brat_score_positions.SpecimenScorare );
-                        arms.updatePivotPosition( GLOBALS.pivot_positions.SpecimenScorare );
+                        arms.updateBratScorePosition( GLOBALS.brat_score_positions.SpecimenScorareTELEOP );
+                        arms.updatePivotPosition( GLOBALS.pivot_positions.SpecimenScorareTELEOP );
                         currentState = SpecimenTEAVA;
                     }
 

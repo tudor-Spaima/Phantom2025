@@ -5,7 +5,7 @@ public class GLOBALS {
 
     //Lift
     public enum LiftPositions{
-        Basket1, Basket2, Jos, Specimen;
+        Basket1, Basket2, Jos, Specimen,SpecimenTELEOP;
     }
 
     public static final int Basket1 = 565;
@@ -17,7 +17,7 @@ public class GLOBALS {
         Extended, Retracted, Transfer, Init;
     }
     public static final double Init = 0.99;
-    public static final double Extended = 0.74;
+    public static final double Extended = 0.745;
     public static final double Retracted = 0.99;
     public static final double Transfer = 0.888;
 
@@ -26,10 +26,10 @@ public class GLOBALS {
         Intake, Colectare, Transfer, Init;
     }
     public enum brat_score_positions{
-        Init, Transfer, Score, Specimen, Safe, SpecimenScorare;
+        Init, Transfer, Score, Specimen, Safe, SpecimenScorare,SpecimenScorareTELEOP;
     }
     public enum pivot_positions{
-        Score, Specimen, Transfer, Safe, SpecimenScorare;
+        Score, Specimen, Transfer, Safe, SpecimenScorare,SpecimenScorareTELEOP;
     }
     public enum rotire_gripper_positions{
         pe_lung, pe_lat, mai_asea;
@@ -68,7 +68,7 @@ public class GLOBALS {
 
 
     public static final double pivot_score = 0.55;
-    public static final double pivot_specimen = 0.52;
+    public static final double pivot_specimen = 0.54;
     public static final double pivot_transfer = 0.2;
     public  static  final double pivot_safe = 0.5;
 
@@ -81,9 +81,13 @@ public class GLOBALS {
 
 
     //Pozitii pentru specimen scorare, restul cu specimen sunt pentru colectare
-    public  static  final int lift_specimen_scorare = 1350;
-    public static final double brat_scorare_specimen_scorare = 0.6;
-    public static final double pivot_specimen_scorare = 0.75;
+    public  static  final int lift_specimen_scorare = 70;//50 avea
+    public static final double brat_scorare_specimen_scorare = 0.37 ;
+    public static final double pivot_specimen_scorare = 0.6;
+
+    public  static  final int lift_specimen_scorareTELEOP = 70;
+    public static final double brat_scorare_specimen_scorareTELEOP = 0.37 ;
+    public static final double pivot_specimen_scorareTELEOP = 0.6;
 
     //parametrii senzori
     public static final double intake_distance = 0.01;

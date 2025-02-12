@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
@@ -45,7 +46,7 @@ public class test extends LinearOpMode {
         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
         Pose2d start = new Pose2d(new Vector2d (0,0),Math.toRadians(0));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, start);
+        PinpointDrive drive = new PinpointDrive(hardwareMap, start);
 
 
         VelConstraint velPuternic = new MinVelConstraint( Arrays.asList(

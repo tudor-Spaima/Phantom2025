@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.robit.Lift;
 import java.util.Arrays;
 
 
-@Autonomous(name="autoSpecimen4")
+@Autonomous(name="autoSpecimenPuternic")
 public class autoSpecimenPuternic extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -45,7 +46,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
 
         Pose2d start = new Pose2d(new Vector2d(0, 0), Math.toRadians(0));
 
-        MecanumDrive drive = new MecanumDrive(hardwareMap, start, -0.5);
+        PinpointDrive drive = new PinpointDrive(hardwareMap, start);
 
         ElapsedTime timp = new ElapsedTime();
 
@@ -84,7 +85,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-30, 0), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
                         //sample
                         .afterTime(1, ()->{
@@ -100,13 +101,13 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .splineToConstantHeading(new Vector2d(-10, 25) ,Math.toRadians(0), velPuternic,accelPuternic)
 
 
-                        .strafeToLinearHeading(new Vector2d(-48, 37) ,Math.toRadians(0), velPuternic,accelPuternic)
-                        .strafeToLinearHeading(new Vector2d(-8, 40), Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-48, 35) ,Math.toRadians(0), velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-8, 37), Math.toRadians(0), velPuternic,accelPuternic)
 
 
-                        .strafeToConstantHeading(new Vector2d(-47, 40) , velPuternic,accelPuternic)
-                        .strafeToLinearHeading(new Vector2d(-48, 50), Math.toRadians(0),velPuternic,accelPuternic)
-                        .strafeToConstantHeading(new Vector2d(-8, 50) , velPuternic,accelPuternic)
+                        .strafeToConstantHeading(new Vector2d(-47, 37) , velPuternic,accelPuternic)
+                        .strafeToLinearHeading(new Vector2d(-48, 45), Math.toRadians(0),velPuternic,accelPuternic)
+                        .strafeToConstantHeading(new Vector2d(-8, 45) , velPuternic,accelPuternic)
 
 
                         .strafeToConstantHeading(new Vector2d(-47, 50) , velPuternic,accelPuternic)
@@ -117,7 +118,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-8, 55), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //colectare specimen 1
                         .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -129,7 +130,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(4, 55) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .splineToConstantHeading(new Vector2d(5, 55) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
 
                         //.strafeToLinearHeading(new Vector2d(3 ,40), Math.toRadians(0))
@@ -139,7 +140,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //livrare specimen 1
                         .afterTime(0, () -> {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
@@ -159,7 +160,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
 
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-29, -15), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //colectare specimen 3
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -181,7 +182,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //livrare specimen 3
                         .afterTime(0, () -> {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
@@ -196,7 +197,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-32, -10), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //colectare specimen 4
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
@@ -208,17 +209,17 @@ public class autoSpecimenPuternic extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(-10, 30) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .splineToConstantHeading(new Vector2d(-10, 35) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
 
-                        .strafeToLinearHeading(new Vector2d(3, 35), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(4, 35), Math.toRadians(0))
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //livrare specimen 4
                         .afterTime(0, () -> {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
@@ -235,8 +236,8 @@ public class autoSpecimenPuternic extends LinearOpMode {
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-31, -15), Math.toRadians(0)))
-                        //colectare specimen 4
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                        //colectare specimen 5
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
@@ -247,18 +248,18 @@ public class autoSpecimenPuternic extends LinearOpMode {
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
 
                         })
-                        .splineToConstantHeading(new Vector2d(-10, 30) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
+                        .splineToConstantHeading(new Vector2d(-10, 35) ,Math.toRadians(0), baseVelConstraint,baseAccelConstraint)
 
 
-                        .strafeToLinearHeading(new Vector2d(3, 35), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(4, 35), Math.toRadians(0))
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
                         .build());
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(3, 35), Math.toRadians(0)))
-                        //livrare specimen 4
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                        //livrare specimen 5
                         .afterTime(0, () -> {
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
@@ -277,7 +278,7 @@ public class autoSpecimenPuternic extends LinearOpMode {
 
 
         Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d(-31, -15), Math.toRadians(0)))
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
                         //parcare
                         .afterTime(1, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);

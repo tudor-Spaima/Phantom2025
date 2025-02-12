@@ -26,8 +26,8 @@ import org.firstinspires.ftc.teamcode.messages.TwoDeadWheelInputsMessage;
 @Config
 public final class TwoDeadWheelLocalizer implements Localizer {
     public static class Params {
-        public double parYTicks = -1242.3268998469182; // y position of the parallel encoder (in tick units)
-        public double perpXTicks = 2023.9589540164222; // x position of the perpendicular encoder (in tick units)
+        public double parYTicks = 0.0; // y position of the parallel encoder (in tick units)
+        public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
     }
 
     public static Params PARAMS = new Params();
@@ -35,7 +35,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
     public final Encoder par, perp;
     public final IMU imu;
 
-    private int lastParPos, lastPerpPos;
+    private double lastParPos, lastPerpPos;
     private Rotation2d lastHeading;
 
     private final double inPerTick;
@@ -51,7 +51,6 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "perp")));
 
         // TODO: reverse encoder directions if needed
-
         //   par.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.imu = imu;
@@ -101,8 +100,8 @@ public final class TwoDeadWheelLocalizer implements Localizer {
             );
         }
 
-        int parPosDelta = parPosVel.position - lastParPos;
-        int perpPosDelta = perpPosVel.position - lastPerpPos;
+        double parPosDelta = parPosVel.position - lastParPos;
+        double perpPosDelta = perpPosVel.position - lastPerpPos;
         double headingDelta = heading.minus(lastHeading);
 
         Twist2dDual<Time> twist = new Twist2dDual<>(

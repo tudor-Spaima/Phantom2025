@@ -53,6 +53,11 @@ public class Lift extends GLOBALS {
                 goToPos(lift_specimen_scorare, 1, CulisantaStanga);
                 break;
 
+            case SpecimenTELEOP:
+                goToPos(lift_specimen_scorareTELEOP, 1, CulisantaDreapta);
+                goToPos(lift_specimen_scorareTELEOP, 1, CulisantaStanga);
+                break;
+
 
         }
     }
