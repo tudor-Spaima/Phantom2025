@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.robit.Lift;
 import java.util.Arrays;
 
 
-@Autonomous(name="preload")
+@Autonomous(name="auto_specimen")
 public class auto_specimen extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -44,16 +45,14 @@ public class auto_specimen extends LinearOpMode {
         arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
 
         Pose2d start = new Pose2d(new Vector2d(0, 0), Math.toRadians(0));
-
         PinpointDrive drive = new PinpointDrive(hardwareMap, start);
-
         ElapsedTime timp = new ElapsedTime();
 
-        VelConstraint baseVelConstraint = new MinVelConstraint(Arrays.asList(
-                new TranslationalVelConstraint(120),
+        VelConstraint slowVel = new MinVelConstraint(Arrays.asList(
+                new TranslationalVelConstraint(60),
                 new AngularVelConstraint(Math.PI / 2)
         ));
-        AccelConstraint baseAccelConstraint = new ProfileAccelConstraint(-40, 60);
+        AccelConstraint slowAccel = new ProfileAccelConstraint(-30, 50);
 
         VelConstraint velPuternic = new MinVelConstraint(Arrays.asList(
                 new TranslationalVelConstraint(120),
@@ -61,13 +60,9 @@ public class auto_specimen extends LinearOpMode {
         ));
         AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
 
-
-        //Initializare
-
-
         waitForStart();
         timp.startTime();
-
+//preload
         Actions.runBlocking(
                 drive.actionBuilder(start)
                         .afterTime(0, () -> {
@@ -83,13 +78,12 @@ public class auto_specimen extends LinearOpMode {
 
                             }).start();
                         })
-
                         .strafeToLinearHeading(new Vector2d(-16, 40), Math.toRadians(-90))
 
 
                         .build());
 
-
+//sample1
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
 
@@ -120,7 +114,7 @@ public class auto_specimen extends LinearOpMode {
 
                         .build());
 
-///
+
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
 
@@ -135,7 +129,7 @@ public class auto_specimen extends LinearOpMode {
 
 
                         .build());
-
+//sample 2
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
 
@@ -184,7 +178,7 @@ public class auto_specimen extends LinearOpMode {
 
 
                         .build());
-
+//sample 3
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
 
@@ -227,7 +221,7 @@ public class auto_specimen extends LinearOpMode {
 
 
                         .build());
-
+//specimen 2
 
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
@@ -247,11 +241,10 @@ public class auto_specimen extends LinearOpMode {
                         }).start();
                         })
                         .strafeToLinearHeading(new Vector2d(35, 6) ,Math.toRadians(-90))
-
                         .afterTime(1,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
-                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90))
+                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90), slowVel, slowAccel)
 
                         .build());
 
@@ -276,7 +269,7 @@ public class auto_specimen extends LinearOpMode {
 
                         .build());
 
-//specimen 2
+//specimen 3
 
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
@@ -296,7 +289,7 @@ public class auto_specimen extends LinearOpMode {
                         //.strafeToConstantHeading(new Vector2d(30, 15) )
 
 
-                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90))
+                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90), slowVel, slowAccel)
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
@@ -326,7 +319,7 @@ public class auto_specimen extends LinearOpMode {
 
 
                         .build());
-        //specimen 3
+        //specimen 4
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
@@ -344,7 +337,7 @@ public class auto_specimen extends LinearOpMode {
 
                         //.strafeToConstantHeading(new Vector2d(30, 15) )
 
-                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90))
+                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90), slowVel, slowAccel)
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
@@ -373,7 +366,7 @@ public class auto_specimen extends LinearOpMode {
                         .build());
 
 
-        //specimen 4
+        //specimen 5
 
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
@@ -386,13 +379,10 @@ public class auto_specimen extends LinearOpMode {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
-
-
                         })
 
-                        //.strafeToConstantHeading(new Vector2d(30, 15) )
+                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90), slowVel, slowAccel )
 
-                        .strafeToLinearHeading(new Vector2d(31.5, 1), Math.toRadians(-90))
                         .afterTime(0,()->{
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
                         })
@@ -413,66 +403,17 @@ public class auto_specimen extends LinearOpMode {
 
 
                         }).start();})
-
                         .strafeToConstantHeading(new Vector2d(-10, 40) )
-
-
-
 
                         .build());
 
 
-        //specimen 5
 
-//        Actions.runBlocking(
-//                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
-//
-//                        .afterTime(0.6, ()->{
-//                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-//                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-//                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-//                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
-//                            arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
-//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
-//
-//
-//                        })
-//
-//                        //.strafeToConstantHeading(new Vector2d(30, 15) )
-//
-//                        .strafeToLinearHeading(new Vector2d(30, 3), Math.toRadians(-90))
-//                        .afterTime(0,()->{
-//                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
-//                        })
-//
-//                        .build());
-//
-//        Actions.runBlocking(
-//                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
-//                        .afterTime(0, () -> {
-//
-//                            lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
-//                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
-//                            arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
-//                        })
-//                        .afterTime(1.5, ()->{ new Thread(()-> {
-//                            arms.pivot.setPosition(0.45);
-//
-//
-//                        }).start();})
-//
-//                        .strafeToConstantHeading(new Vector2d(-13, 40) )
-//
-//
-//
-//
-//                        .build());
-
+        //parcare
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
 
-                        .afterTime(0.65, ()->{
+                        .afterTime(0.5, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Extended);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
@@ -480,17 +421,8 @@ public class auto_specimen extends LinearOpMode {
                             arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
                             arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-
-
                         })
-
-
-                        .strafeToLinearHeading(new Vector2d(30, 5), Math.toRadians(0))
-                        .afterTime(0,()->{
-                            arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
-                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake );
-
-                        })
+                        .strafeToLinearHeading(new Vector2d(30, 5), Math.toRadians(0), velPuternic, accelPuternic)
 
                         .build());
 

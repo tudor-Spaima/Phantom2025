@@ -25,8 +25,8 @@ import org.firstinspires.ftc.teamcode.robit.Senzori;
 
 import java.util.Arrays;
 
-@Autonomous(name = "auto_sample_V2_SIMPLU")
-public class auto_sample_SIMPLU extends LinearOpMode {
+@Autonomous(name = "auto_sample_5")
+public class auto_sample_5 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -89,21 +89,87 @@ public class auto_sample_SIMPLU extends LinearOpMode {
 
 
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-        sleep(200);
+        sleep(400);
+
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
         sleep(200);
+
+        //colectare human
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                        .afterTime(0, ()->{
+                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
+                        })
+                        .afterTime(1.5, ()->{ new Thread(()-> {
+                            extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Extended );
+                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
+                        }).start();
+                        })
+
+                        .strafeToLinearHeading(new Vector2d( 10, -48.4), Math.toRadians(-124))
+
+                        .afterTime( 0, ( ) -> {
+                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
+
+                        })
+                        .afterTime( 0.3, ( ) -> {
+                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
+                        })
+                        .build());
+
+        Actions.runBlocking(
+                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+
+                        .afterTime(0, ()->{ new Thread(()-> {
+                            lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
+                            arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
+                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
+                            arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
+                            arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
+                            sleep( 300 );
+
+                            extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
+
+                            sleep( 200 );
+
+                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Transfer );
+                            sleep( 200 );
+                            arms.updateGripperScorePosition( GLOBALS.grippers_positions.Inchis );
+                            sleep( 100 );
+                            arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
+                            arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe);
+
+                            sleep( 200 );
+                            lift.updateLiftPosition( GLOBALS.LiftPositions.Basket2 );
+                            extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
+                            arms.pivot.setPosition(0.6);
+                            arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
+
+                        }).start();
+                        })
+                        .strafeToLinearHeading(new Vector2d( 10, 25), Math.toRadians( -45 ))
+                        .build());
+
+        while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
+        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
+        sleep(400);
+        arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
+        sleep(400);
+        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
 
 
         //colectare sample 1
         Actions.runBlocking(
                 drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
-                .afterTime(0, ()->{
+                        .afterTime(0, ()->{
                             lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
                             arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d( 23, 32), Math.toRadians(0) )
+                        .strafeToLinearHeading(new Vector2d( 24, 32), Math.toRadians(0) )
 
 
 
@@ -145,16 +211,16 @@ public class auto_sample_SIMPLU extends LinearOpMode {
                             arms.pivot.setPosition(0.6);
                             arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
 
-                            }).start();
+                        }).start();
                         })
                         .strafeToLinearHeading(new Vector2d( 11, 23), Math.toRadians( -45 ) )
                         .build());
 
         while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(200);
+        sleep(400);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-        sleep(200);
+        sleep(400);
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
 
 
@@ -169,7 +235,7 @@ public class auto_sample_SIMPLU extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(22, 19), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(24, 19), Math.toRadians(0))
 
 
                         .afterTime( 0, ( ) -> {
@@ -222,9 +288,9 @@ public class auto_sample_SIMPLU extends LinearOpMode {
 
         while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(200);
+        sleep(400);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-        sleep(200);
+        sleep(400);
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
 
 
@@ -287,36 +353,39 @@ public class auto_sample_SIMPLU extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d( 11, 23), Math.toRadians( -45 ) )
 
 
-               .build());
+                        .build());
 
         while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(200);
+        sleep(400);
+
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-        sleep(200);
+        sleep(400);
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
 
 
 
-            //parcare
-            Actions.runBlocking(
-                    drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
+        //parcare
+        Actions.runBlocking(
+                drive.actionBuilder( new Pose2d( new Vector2d( drive.pose.position.x, drive.pose.position.y ), drive.pose.heading.toDouble() ) )
 
-                    .afterTime( 0, ( ) -> {
-                        new Thread( ( ) -> {
-                            lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
-                            extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
-                            arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-                            arms.updateBratScorePosition(GLOBALS.brat_score_positions.Init);
-                            arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
-                            arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-                            arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
-                        } ).start();
-                    })
+                        .afterTime( 0, ( ) -> {
+                            new Thread( ( ) -> {
+                                lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
+                                extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
+                                arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
+                                arms.updateBratScorePosition(GLOBALS.brat_score_positions.Init);
+                                arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
+                                arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
+                                arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
+                            } ).start();
+                        })
 
-                    .splineToLinearHeading(new Pose2d(60, -10,Math.toRadians(90)), Math.toRadians(-90), velPuternic, accelPuternic)
+//                    .strafeToLinearHeading(new Vector2d(55, 15), Math.toRadians(90), velPuternic, accelPuternic)
+//                    .strafeToLinearHeading(new Vector2d(55, -5), Math.toRadians(90), velPuternic, accelPuternic)
+                        .splineToLinearHeading(new Pose2d(60, -10,Math.toRadians(90)), Math.toRadians(-90), velPuternic, accelPuternic)
 
-                            .build());
+                        .build());
 
 
 

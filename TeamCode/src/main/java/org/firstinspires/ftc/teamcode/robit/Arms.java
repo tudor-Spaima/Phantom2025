@@ -97,8 +97,8 @@ public class Arms extends GLOBALS {
                 break;
             case SpecimenScorare:
                 pivot.setPosition(pivot_specimen_scorare);
-            case SpecimenScorareTELEOP:
-                pivot.setPosition(pivot_specimen_scorareTELEOP);
+            case Infipt:
+                pivot.setPosition(pivotInfipt);
 
         }
     }

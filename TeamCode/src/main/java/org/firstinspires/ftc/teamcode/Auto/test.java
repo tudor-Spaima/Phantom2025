@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
 import org.firstinspires.ftc.teamcode.robit.Lift;
+import org.firstinspires.ftc.teamcode.robit.Senzori;
 
 import java.util.Arrays;
 
@@ -34,49 +35,35 @@ public class test extends LinearOpMode {
         Extendo extendo = new Extendo(hardwareMap);
         Arms arms = new Arms(hardwareMap);
         ElapsedTime timp = new ElapsedTime();
+        Senzori senzori = new Senzori(hardwareMap);
 
         //INITIALIZARE
         lift.updateLiftPosition(GLOBALS.LiftPositions.Jos);
         extendo.updateExtendoPosition(GLOBALS.ExtendoPositions.Init);
         arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Init);
-        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Init);
-        arms.updatePivotPosition(GLOBALS.pivot_positions.Safe);
+        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Specimen);
+        arms.updatePivotPosition(GLOBALS.pivot_positions.Specimen);
         arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Deschis);
-        arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+        arms.updateGripperScorePosition(GLOBALS.grippers_positions.Deschis);
         arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lat);
 
         Pose2d start = new Pose2d(new Vector2d (0,0),Math.toRadians(0));
         PinpointDrive drive = new PinpointDrive(hardwareMap, start);
 
-
-        VelConstraint velPuternic = new MinVelConstraint( Arrays.asList(
-                new TranslationalVelConstraint(120),
-                new AngularVelConstraint(Math.PI / 2)
-        ));
-        AccelConstraint accelPuternic = new ProfileAccelConstraint(-50, 80);
-
         waitForStart();
-        timp.startTime();
 
-//        Actions.runBlocking(
-//                drive.actionBuilder(start)
-//                        .strafeToConstantHeading(new Vector2d(18, 34.1))
-//                        .strafeToConstantHeading(new Vector2d(15, 34.1))
-//                        .strafeToConstantHeading(new Vector2d(23, 29))
-//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-//                        .strafeToLinearHeading(new Vector2d(20, 18), Math.toRadians(0))
-//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-//                        .strafeToLinearHeading(new Vector2d(37, 24), Math.toRadians(90))
-//                        .strafeToLinearHeading(new Vector2d(17, 34), Math.toRadians(0))
-//                        .build());
 
+            double dist = (senzori.getDistanceScore()-5.5)/2.54;
+
+            Actions.runBlocking(
+                    drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
+                            .strafeToConstantHeading(new Vector2d(dist, 0))
+
+                            .build());
+        arms.updateGripperScorePosition(GLOBALS.grippers_positions.Inchis);
+        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
         Actions.runBlocking(
-                drive.actionBuilder(start)
-                        .strafeToConstantHeading(new Vector2d(18, 34.1))
-                        .build());
-        sleep( 3000 );
-        Actions.runBlocking(
-                drive.actionBuilder(new Pose2d(new Vector2d (drive.pose.position.x,drive.pose.position.y),drive.pose.heading.toDouble()))
+                drive.actionBuilder(new Pose2d(new Vector2d(drive.pose.position.x, drive.pose.position.y), drive.pose.heading.toDouble()))
                         .strafeToConstantHeading(new Vector2d(0, 0))
 
                         .build());
@@ -85,8 +72,6 @@ public class test extends LinearOpMode {
 
 
 
-        telemetry.addData("timp", timp.time());
-        telemetry.update();
         sleep(200000);
 
     }

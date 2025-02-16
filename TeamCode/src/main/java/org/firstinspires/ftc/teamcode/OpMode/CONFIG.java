@@ -51,6 +51,15 @@ public class CONFIG  extends LinearOpMode {
             arms.gripper_score.setPosition(GRIPPER_SCORE);
             arms.gripper_intake.setPosition(GRIPPER_INTAKE);
 
+            if (gamepad2.right_bumper) {
+                lift.goToPos( 1000, 1, lift.CulisantaDreapta ); //1900
+                lift.goToPos( 1000, 1, lift.CulisantaStanga );
+            }
+            if (gamepad2.left_bumper) {
+                lift.goToPos( 0, 1, lift.CulisantaDreapta ); //1000
+                lift.goToPos( 0, 1, lift.CulisantaStanga );
+            }
+
 
 
 
