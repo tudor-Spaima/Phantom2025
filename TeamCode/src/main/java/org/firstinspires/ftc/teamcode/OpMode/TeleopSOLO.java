@@ -1,11 +1,18 @@
 package org.firstinspires.ftc.teamcode.OpMode;
 
+import static org.firstinspires.ftc.teamcode.OpMode.TeleopSOLO.teleopStates.SpecimenTEAVA;
+
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.outoftheboxrobotics.photoncore.PhotonCore;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandBase.Commands;
+import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robit.GLOBALS;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
@@ -14,30 +21,27 @@ import org.firstinspires.ftc.teamcode.robit.Lift;
 import org.firstinspires.ftc.teamcode.robit.Senzori;
 
 
-@TeleOp(name = "TeleopV2", group = "Teleop")
-public class TeleopV2 extends LinearOpMode {
-    enum teleopStates {
-        Intake, Score, Specimen, SpecimenTEAVA, Init
-    }
-    enum autoIntake {
-        on, off
-    }
+@TeleOp(name = "TeleopSOLO", group = "Teleop")
+public class TeleopSOLO extends LinearOpMode {
+    enum teleopStates {Intake, Score, Specimen, SpecimenTEAVA, Init}
+    enum autoIntake {on, off}
+    enum feedMode {on, off}
 
 
     @Override
     public void runOpMode( ) throws InterruptedException {
 
-        TeleopV2.teleopStates currentState = TeleopV2.teleopStates.Init;
-        autoIntake autoIntake = TeleopV2.autoIntake.on;
+        teleopStates currentState = teleopStates.Intake;
+        autoIntake autoIntake = TeleopSOLO.autoIntake.on;
 
 
-        MecanumDrive drive = new MecanumDrive( hardwareMap, new Pose2d( 0, 0, 0 ) );
         Lift lift = new Lift( hardwareMap );
         Extendo extendo = new Extendo( hardwareMap );
         Arms arms = new Arms( hardwareMap );
         Senzori senzori = new Senzori( hardwareMap );
         Commands commands = new Commands(hardwareMap);
-        GLOBALS.LiftPositions position = GLOBALS.LiftPositions.Basket2;
+        GLOBALS.LiftPositions scorePos = GLOBALS.LiftPositions.Basket2;
+        PinpointDrive pp = new PinpointDrive(hardwareMap, new Pose2d(new Vector2d(0, 0), Math.toRadians(0)));
 
 
         PhotonCore photonCore = new PhotonCore();
@@ -45,10 +49,9 @@ public class TeleopV2 extends LinearOpMode {
         ph.setMaximumParallelCommands( 8 );
         ph.setSinglethreadedOptimized( false );
 
-        //INITIALIZARE
         commands.initPositions();
 
-        Teleop.DriveController driveController = new Teleop.DriveController( telemetry, gamepad1, drive, extendo, senzori, hardwareMap );
+        Teleop.DriveController driveController = new Teleop.DriveController( telemetry, gamepad1, pp, extendo, senzori, hardwareMap );
         Thread driveControllerThread = new Thread( driveController );
 
         if (driveControllerThread.isAlive()) {
@@ -60,6 +63,7 @@ public class TeleopV2 extends LinearOpMode {
 
 
         waitForStart();
+        commands.intakePositions();
         driveControllerThread.start();
 
         while (opModeIsActive()) {
@@ -70,9 +74,8 @@ public class TeleopV2 extends LinearOpMode {
                     if (gamepad2.triangle) {
                         commands.intakePositions();
                         sleep( 200 );
-                        currentState = TeleopV2.teleopStates.Intake;
+                        currentState = TeleopSOLO.teleopStates.Intake;
                     }
-
                     break;
 
                 case Intake:
@@ -85,16 +88,14 @@ public class TeleopV2 extends LinearOpMode {
                             case on:
                                 if (senzori.hasSample()) {
                                     commands.transfer();
-                                    lift.updateLiftPosition( GLOBALS.LiftPositions.Basket2 );
-                                    currentState = TeleopV2.teleopStates.Score;
-
-
-//                                    if(senzori.hasSampleScore()) {
-//                                        currentState = TeleopV2.teleopStates.Score;
-//                                    }else{
-//                                        commands.intakePositions();
-//                                    }
-                                }else{
+                                    lift.updateLiftPosition(scorePos);
+                                    currentState = TeleopSOLO.teleopStates.Score;
+/*                                    if(senzori.hasSampleScore()) {
+                                        currentState = TeleopSOLO.teleopStates.Score;
+                                    }else{
+                                        commands.intakePositions();
+                                    }
+*/                                }else{
                                     arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
                                 }
                                 break;
@@ -120,7 +121,6 @@ public class TeleopV2 extends LinearOpMode {
                         } else {
                             extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Retracted );
                             sleep( 200 );
-
                         }
                     }
 
@@ -130,15 +130,26 @@ public class TeleopV2 extends LinearOpMode {
                         arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
                     }
 
-                    if (gamepad2.cross) {
+                    if (gamepad1.cross) {
                         commands.transfer();
-                        currentState = TeleopV2.teleopStates.Score;
+                        lift.updateLiftPosition(scorePos);
+                        currentState = TeleopSOLO.teleopStates.Score;
                     }
-                    if (gamepad2.square) {
+                    if (gamepad1.dpad_right) {
                         commands.specimenIntakePositions();
-                        currentState = TeleopV2.teleopStates.Specimen;
+                        currentState = TeleopSOLO.teleopStates.Specimen;
                         sleep( 200 );
                     }
+                    if(gamepad1.left_bumper){
+                        if( scorePos== GLOBALS.LiftPositions.Basket2){
+                            scorePos= GLOBALS.LiftPositions.Basket1;
+                            sleep(200);
+                        }else{
+                            scorePos= GLOBALS.LiftPositions.Basket2;
+                            sleep(200);
+                        }
+                    }
+
                     break;
 
 
@@ -151,7 +162,7 @@ public class TeleopV2 extends LinearOpMode {
                         sleep( 500 );
                         commands.intakePositions();
                         sleep( 200 );
-                        currentState = TeleopV2.teleopStates.Intake;
+                        currentState = TeleopSOLO.teleopStates.Intake;
                     }
                     if (gamepad2.dpad_up) {
                         lift.updateLiftPosition( GLOBALS.LiftPositions.Basket2 );
@@ -170,13 +181,15 @@ public class TeleopV2 extends LinearOpMode {
 
 
                 case Specimen:
+
                     switch (autoIntake) {
                         case on:
                             if (senzori.hasSampleScore()) {
                                 arms.updateGripperScorePosition( GLOBALS.grippers_positions.Inchis );
                                 sleep(300);
                                 commands.specimenScorePositions();
-                                currentState = teleopStates.SpecimenTEAVA;
+                                pp = new PinpointDrive(hardwareMap, new Pose2d(new Vector2d(0, 0), Math.toRadians(0)));
+                                currentState = SpecimenTEAVA;
                             }
                         case off:
                             if (gamepad1.square) {
@@ -190,7 +203,23 @@ public class TeleopV2 extends LinearOpMode {
                             break;
                     }
 
-                    if (gamepad2.triangle) {
+                    if(gamepad1.left_bumper) {
+                        driveController.stopThread();
+                        sleep(200);
+                        pp.updatePoseEstimate();
+                        TrajectoryActionBuilder finish_spec_new = pp.actionBuilder(pp.pose)
+                                .strafeToLinearHeading(new Vector2d(-10, 0), Math.toRadians(0));
+                        Actions.runBlocking(
+                                new SequentialAction(
+                                        finish_spec_new.build()
+                                ));
+                        sleep(200);
+                        driveController.continueThread();
+
+                    }
+
+
+                    if (gamepad1.dpad_left) {
                         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
                         sleep( 1000 );
                         lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
@@ -200,9 +229,9 @@ public class TeleopV2 extends LinearOpMode {
                         arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
                         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
                         sleep( 200 );
-                        currentState = TeleopV2.teleopStates.Intake;
+                        currentState = TeleopSOLO.teleopStates.Intake;
                     }
-                    break;
+                break;
 
                 case SpecimenTEAVA: //adica scorare
 
@@ -213,21 +242,11 @@ public class TeleopV2 extends LinearOpMode {
                         sleep(200);
                         commands.specimenIntakePositions();
                         sleep( 200 );
-                        currentState = TeleopV2.teleopStates.Specimen;
+                        currentState = TeleopSOLO.teleopStates.Specimen;
                     }
                     break;
             }
 
-            if(gamepad1.left_bumper){
-                if(position == GLOBALS.LiftPositions.Basket2){
-                    position = GLOBALS.LiftPositions.Basket1;
-                    sleep(200);
-                }else{
-                    position = GLOBALS.LiftPositions.Basket2;
-
-
-                }
-            }
 
             if (gamepad2.left_stick_y != 0) {
                 lift.manualControl( gamepad2.left_stick_y, 60 );
@@ -236,28 +255,21 @@ public class TeleopV2 extends LinearOpMode {
             lift.manualEncodersReset( gamepad2.touchpad );
 
 
-            if (gamepad2.dpad_down) {
-                if (autoIntake == TeleopV2.autoIntake.on) {
-                    autoIntake = TeleopV2.autoIntake.off;
+            if (gamepad1.dpad_down) {
+                if (autoIntake == TeleopSOLO.autoIntake.on) {
+                    autoIntake = TeleopSOLO.autoIntake.off;
                 } else {
-                    autoIntake =TeleopV2.autoIntake.on;
+                    autoIntake =TeleopSOLO.autoIntake.on;
                 }
                 sleep( 200 );
             }
 
+            if(gamepad1.touchpad){
+                sleep(200);
+                pp = new PinpointDrive(hardwareMap, new Pose2d(new Vector2d(0, 0), Math.toRadians(0)));
 
+            }
 
-            /*
-                telemetry.addData("Runtime", getRuntime());
-                telemetry.addData("Drive Thread Alive", driveControllerThread.isAlive());
-                telemetry.addData("Current State", currentState);
-                telemetry.addData("Distanta (CM) ", senzori.getDistance());
-                telemetry.addData("Are sample in gura ", senzori.hasSample());
-                telemetry.addData("Sample in range ", senzori.sampleInRange());
-                telemetry.addData("Automatizare Intake", automatizareInakte);
-                telemetry.addData("culisanta stanga", lift.CulisantaStanga.getCurrentPosition());
-                telemetry.addData("culisanta dreapta", lift.CulisantaDreapta.getCurrentPosition());
-             */
 
             String detectedColor = senzori.detectColor( senzori.senzorIntakeCuloare.red(), senzori.senzorIntakeCuloare.green(), senzori.senzorIntakeCuloare.blue() );
             telemetry.addData( "Automatizare Intake", autoIntake );
@@ -268,7 +280,7 @@ public class TeleopV2 extends LinearOpMode {
             telemetry.addData("DistantaScore (CM) ", senzori.getDistanceScore());
             telemetry.addData("DistantaIntake (CM) ", senzori.getDistance());
             telemetry.addLine();
-            telemetry.addData("BASKET: ", position);
+            telemetry.addData("BASKET: ",scorePos );
             telemetry.update();
 
 

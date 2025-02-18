@@ -25,7 +25,6 @@ public class CONFIG  extends LinearOpMode {
     public static double ROTIRE_GRIPPER = 0.25;
     public static double GRIPPER_SCORE = 0.05;
     public static double GRIPPER_INTAKE = 0.97;
-
     public static double EXTENDO = 0.99;
 
 

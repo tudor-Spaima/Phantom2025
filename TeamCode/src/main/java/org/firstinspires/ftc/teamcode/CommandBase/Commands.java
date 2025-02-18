@@ -21,6 +21,16 @@ public class Commands {
          arms = new Arms( hardwareMap );
          senzori = new Senzori( hardwareMap );
     }
+    public final void initPositions(){
+        lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
+        extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
+        arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
+        arms.updateBratScorePosition( GLOBALS.brat_score_positions.Init );
+        arms.updatePivotPosition( GLOBALS.pivot_positions.Safe );
+        arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
+        arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
+        arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
+    }
     public final void intakePositions(){
         lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
         extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
@@ -31,6 +41,27 @@ public class Commands {
     }
 
     public final void transfer() throws InterruptedException {
+        lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
+        arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
+        arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
+        arms.updatePivotPosition( GLOBALS.pivot_positions.Transfer );
+        arms.updateRotireGripperPosition( GLOBALS.rotire_gripper_positions.pe_lat );
+        sleep( 300 );
+        extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Transfer );
+        sleep( 200 );
+        arms.updateBratScorePosition( GLOBALS.brat_score_positions.Transfer );
+        sleep( 200 );
+        arms.updateGripperScorePosition( GLOBALS.grippers_positions.Inchis );
+        sleep( 100 );
+        arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
+        arms.updateBratScorePosition( GLOBALS.brat_score_positions.Score );
+        sleep( 200 );
+        extendo.updateExtendoPosition( GLOBALS.ExtendoPositions.Init );
+        arms.updatePivotPosition( GLOBALS.pivot_positions.Score );
+        arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Init );
+
+    }
+    public final void transferCancelable() throws InterruptedException {
         lift.updateLiftPosition( GLOBALS.LiftPositions.Jos );
         arms.updateBratIntakePosition( GLOBALS.brat_intake_positions.Transfer );
         arms.updateBratScorePosition( GLOBALS.brat_score_positions.Safe );
@@ -63,7 +94,8 @@ public class Commands {
 
     }
     public final void specimenScorePositions() throws InterruptedException {
-        lift.updateLiftPosition(GLOBALS.LiftPositions.Specimen);
+        lift.goToPos( 50, 1, lift.CulisantaDreapta ); //1900
+        lift.goToPos( 50, 1, lift.CulisantaStanga );
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.SpecimenScorare);
         arms.updatePivotPosition(GLOBALS.pivot_positions.SpecimenScorare);
     }

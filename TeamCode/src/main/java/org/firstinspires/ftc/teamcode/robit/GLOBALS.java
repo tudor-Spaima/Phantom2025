@@ -8,8 +8,8 @@ public class GLOBALS {
         Basket1, Basket2, Jos, Specimen,SpecimenTELEOP;
     }
 
-    public static final int Basket1 = 400;
-    public static final int Basket2 = 1300;
+    public static final int Basket1 = 180;
+    public static final int Basket2 = 700;
     public static final int Jos = 0;
 
     //Extendo
@@ -17,7 +17,7 @@ public class GLOBALS {
         Extended, Retracted, Transfer, Init;
     }
     public static final double Init = 0.99;
-    public static final double Extended = 0.745;
+    public static final double Extended = 0.775;
     public static final double Retracted = 0.99;
     public static final double Transfer = 0.888;
 
@@ -40,8 +40,8 @@ public class GLOBALS {
 
 
 
-    public static final double gripper_intake_inchis = 0.8;
-    public static final double gripper_intake_deschis = 0.96;
+    public static final double gripper_intake_inchis = 0.72;
+    public static final double gripper_intake_deschis = 0.88;
     public static final double gripper_intake_transfer = 0.83;
 
     public static final double gripper_score_inchis = 0.02;
@@ -81,13 +81,13 @@ public class GLOBALS {
 
 
     //Pozitii pentru specimen scorare, restul cu specimen sunt pentru colectare
-    public  static  final int lift_specimen_scorare = 50; //50 avea
+    public  static  final int lift_specimen_scorare = 25; //50 avea
     public static final double brat_scorare_specimen_scorare = 0.37 ;
     public static final double pivot_specimen_scorare = 0.6;
 
-    public  static  final int lift_specimen_scorareTELEOP = 70;
+    public  static  final int lift_specimen_scorareTELEOP = 50;
     public static final double brat_scorare_specimen_scorareTELEOP = 0.37 ;
-    public static final double pivotInfipt = 0.6;
+    public static final double pivotInfipt = 0.7;
 
     //parametrii senzori
     public static final double intake_distance = 0.01;

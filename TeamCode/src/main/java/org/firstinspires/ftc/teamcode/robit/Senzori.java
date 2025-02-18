@@ -20,6 +20,7 @@ public class Senzori {
         senzorIntakeCuloare = hardwareMap.get(RevColorSensorV3.class, "senzorIntake");
         senzorScore = hardwareMap.get(Rev2mDistanceSensor.class, "senzorsus");
 
+
         KalmanFiltering kalmanFilter = new KalmanFiltering(
                 0,
                 1,
@@ -47,6 +48,9 @@ public class Senzori {
     }
     public boolean hasSampleScore() {
         return senzorScore.getDistance(DistanceUnit.CM) <= GLOBALS.gripper_has_sampleScore;
+    }
+    public boolean hasSampleScore(int samples) {
+        return getFilteredDistance(samples) <= GLOBALS.gripper_has_sampleScore;
     }
     public boolean sampleInRange() {
         return senzorIntake.getDistance(DistanceUnit.CM) <= GLOBALS.intake_distance;

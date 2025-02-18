@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpMode;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -18,7 +19,7 @@ public class KalmanFilterConfig extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
-        RevColorSensorV3 distanceSensor = hardwareMap.get(RevColorSensorV3.class, "sensor_distance");
+        Rev2mDistanceSensor distanceSensor = hardwareMap.get(Rev2mDistanceSensor.class, "senzorsus");
         KalmanFiltering kalmanFilter = new KalmanFiltering(
                 0,
                 1,

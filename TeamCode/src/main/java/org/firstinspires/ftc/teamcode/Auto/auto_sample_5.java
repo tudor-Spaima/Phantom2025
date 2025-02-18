@@ -89,8 +89,7 @@ public class auto_sample_5 extends LinearOpMode {
 
 
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
-        sleep(400);
-
+        sleep(600);
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
         sleep(200);
 
@@ -152,13 +151,11 @@ public class auto_sample_5 extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d( 10, 25), Math.toRadians( -45 ))
                         .build());
 
-        while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
+        while (lift.CulisantaDreapta.getCurrentPosition()<=600 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(400);
+        sleep(600);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
         sleep(400);
-        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-
 
         //colectare sample 1
         Actions.runBlocking(
@@ -216,12 +213,12 @@ public class auto_sample_5 extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d( 11, 23), Math.toRadians( -45 ) )
                         .build());
 
-        while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
+        while (lift.CulisantaDreapta.getCurrentPosition()<=600 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(400);
+        sleep(600);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
         sleep(400);
-        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
+
 
 
 
@@ -286,14 +283,11 @@ public class auto_sample_5 extends LinearOpMode {
                         .strafeToLinearHeading(new Vector2d( 11, 23), Math.toRadians( -45 ) )
                         .build());
 
-        while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
+        while (lift.CulisantaDreapta.getCurrentPosition()<=600 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(400);
+        sleep(600);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
         sleep(400);
-        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
-
-
 
         //colectare sample 3
         Actions.runBlocking(
@@ -355,13 +349,11 @@ public class auto_sample_5 extends LinearOpMode {
 
                         .build());
 
-        while (lift.CulisantaDreapta.getCurrentPosition()<=1000 && !isStopRequested()){}
+        while (lift.CulisantaDreapta.getCurrentPosition()<=600 && !isStopRequested()){}
         arms.updateBratScorePosition(GLOBALS.brat_score_positions.Score);
-        sleep(400);
-
+        sleep(600);
         arms.updateGripperScorePosition( GLOBALS.grippers_positions.Deschis );
         sleep(400);
-        arms.updateBratScorePosition(GLOBALS.brat_score_positions.Safe);
 
 
 

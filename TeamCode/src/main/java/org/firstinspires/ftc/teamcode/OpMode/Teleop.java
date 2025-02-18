@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.outoftheboxrobotics.photoncore.PhotonCore;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -19,54 +20,7 @@ import org.firstinspires.ftc.teamcode.robit.Extendo;
 import org.firstinspires.ftc.teamcode.robit.Lift;
 import org.firstinspires.ftc.teamcode.robit.Senzori;
 
-
-class DriveController implements Runnable {
-    Telemetry telemetry;
-    MecanumDrive drive ;
-    Gamepad gp1;
-    Extendo extendo;
-    HardwareMap hm;
-    Senzori senzori;
-    volatile double driveSpeedMultiplier;
-    volatile boolean isRunning = true;
-
-    public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive, Extendo extendo, Senzori senzori, HardwareMap hm) {
-        this.telemetry = telemetry;
-        this.gp1 = gp1;
-        this.drive = drive;
-        this.extendo = extendo;
-        this.hm = hm;
-        this.senzori = senzori;
-    }
-
-    @Override
-    public void run() {
-        while (isRunning && !Thread.currentThread().isInterrupted()) {
-            double speedMultiplier = senzori.hasSample() ? 1.0 :
-                    (extendo.isExtendoExtended() ? 0.5 : 1.0);
-
-            drive.setDrivePowers(new PoseVelocity2d(
-                    new Vector2d(
-                            -gp1.left_stick_y * speedMultiplier,
-                            -gp1.left_stick_x * speedMultiplier
-                    ),
-                    -gp1.right_stick_x * speedMultiplier
-            ));
-
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
-        }
-    }
-
-    public void stopThread() {
-        isRunning = false;
-    }
-}
-
+@Disabled
 @TeleOp(name = "Teleop", group = "Teleop")
 public class Teleop extends LinearOpMode {
     enum teleopStates {
@@ -407,6 +361,59 @@ public class Teleop extends LinearOpMode {
             Thread.currentThread().interrupt();
         }
 
+    }
+
+    static class DriveController implements Runnable {
+        Telemetry telemetry;
+        MecanumDrive drive;
+        Gamepad gp1;
+        Extendo extendo;
+        HardwareMap hm;
+        Senzori senzori;
+        volatile double driveSpeedMultiplier;
+        volatile boolean isRunning = true;
+
+        public DriveController(Telemetry telemetry, Gamepad gp1, MecanumDrive drive, Extendo extendo, Senzori senzori, HardwareMap hm) {
+            this.telemetry = telemetry;
+            this.gp1 = gp1;
+            this.drive = drive;
+            this.extendo = extendo;
+            this.hm = hm;
+            this.senzori = senzori;
+        }
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+
+                if(isRunning) {
+                    double speedMultiplier = senzori.hasSample() ? 1.0 :
+                            (extendo.isExtendoExtended() ? 0.5 : 1.0);
+
+                    drive.setDrivePowers(new PoseVelocity2d(
+                            new Vector2d(
+                                    -gp1.left_stick_y * speedMultiplier,
+                                    -gp1.left_stick_x * speedMultiplier
+                            ),
+                            -gp1.right_stick_x * speedMultiplier
+                    ));
+                }
+
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }
+
+        public void stopThread() {
+            isRunning = false;
+        }
+        public void continueThread() {
+            isRunning = true;
+        }
     }
 }
 
