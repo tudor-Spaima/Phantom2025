@@ -109,7 +109,7 @@ public class auto_sample_5 extends LinearOpMode {
 
                         .strafeToLinearHeading(new Vector2d( 10, -48.4), Math.toRadians(-124))
 
-                        .afterTime( 0, ( ) -> {
+                        .afterTime( 0.05, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
 
                         })
@@ -166,7 +166,7 @@ public class auto_sample_5 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d( 24, 32), Math.toRadians(0) )
+                        .strafeToLinearHeading(new Vector2d( 22, 31), Math.toRadians(0) )
 
 
 
@@ -174,7 +174,7 @@ public class auto_sample_5 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
 
                         })
-                        .afterTime( 0.3, ( ) -> {
+                        .afterTime( 0.25, ( ) -> {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                         })
                         .build());
@@ -232,14 +232,14 @@ public class auto_sample_5 extends LinearOpMode {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
 
-                        .strafeToLinearHeading(new Vector2d(24, 19), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(22, 19), Math.toRadians(0))
 
 
                         .afterTime( 0, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
 
                         })
-                        .afterTime( 0.3, ( ) -> {
+                        .afterTime( 0.25, ( ) -> {
                             arms.updateGripperIntakePosition(GLOBALS.grippers_positions.Inchis);
                         })
 
@@ -299,9 +299,7 @@ public class auto_sample_5 extends LinearOpMode {
                             arms.updateRotireGripperPosition(GLOBALS.rotire_gripper_positions.pe_lung);
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Intake);
                         })
-
-                        .strafeToLinearHeading(new Vector2d(36, 24), Math.toRadians(90))
-
+                        .strafeToLinearHeading(new Vector2d(36, 23), Math.toRadians(90))
                         .afterTime( 0, ( ) -> {
                             arms.updateBratIntakePosition(GLOBALS.brat_intake_positions.Colectare);
 

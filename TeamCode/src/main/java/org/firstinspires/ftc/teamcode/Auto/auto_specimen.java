@@ -109,7 +109,7 @@ public class auto_specimen extends LinearOpMode {
 
                             }).start();
                         })
-                        .strafeToLinearHeading(new Vector2d(26, 25), Math.toRadians(51))
+                        .strafeToLinearHeading(new Vector2d(24.5, 22), Math.toRadians(51))
 
 
                         .build());
@@ -155,7 +155,7 @@ public class auto_specimen extends LinearOpMode {
                         })
 
 
-                        .strafeToLinearHeading(new Vector2d(35, 44), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(34.5, 43), Math.toRadians(0))
 
 
                         .build());
@@ -202,7 +202,7 @@ public class auto_specimen extends LinearOpMode {
 
                             }).start();
                         })
-                        .strafeToLinearHeading(new Vector2d(45, 45), Math.toRadians(0))
+                        .strafeToLinearHeading(new Vector2d(45, 43), Math.toRadians(0))
 
 
                         .build());

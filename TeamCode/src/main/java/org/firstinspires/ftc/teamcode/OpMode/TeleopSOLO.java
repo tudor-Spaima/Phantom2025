@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.robit.GLOBALS;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.robit.Arms;
 import org.firstinspires.ftc.teamcode.robit.Extendo;
+import org.firstinspires.ftc.teamcode.robit.Led;
 import org.firstinspires.ftc.teamcode.robit.Lift;
 import org.firstinspires.ftc.teamcode.robit.Senzori;
 
@@ -41,6 +42,7 @@ public class TeleopSOLO extends LinearOpMode {
         Senzori senzori = new Senzori( hardwareMap );
         Commands commands = new Commands(hardwareMap);
         GLOBALS.LiftPositions scorePos = GLOBALS.LiftPositions.Basket2;
+        Led led = new Led(hardwareMap);
         PinpointDrive pp = new PinpointDrive(hardwareMap, new Pose2d(new Vector2d(0, 0), Math.toRadians(0)));
 
 
@@ -102,6 +104,23 @@ public class TeleopSOLO extends LinearOpMode {
                             case off:
                                 break;
                         }
+                    }
+                    if(extendo.isExtendoExtended()){
+                        if(senzori.hasSample()){
+                            led.setColor(1);//alb
+
+                        }else{
+                            led.setColor(0.270);//rosu
+
+                        }
+                    }else{
+                        if(scorePos== GLOBALS.LiftPositions.Basket2){
+                            led.setColor(0.722);//verde
+                        }else{
+                            led.setColor(0.444);//mov
+
+                        }
+
                     }
                     if (gamepad1.circle) {
                         arms.updateGripperIntakePosition( GLOBALS.grippers_positions.Deschis );
@@ -203,6 +222,12 @@ public class TeleopSOLO extends LinearOpMode {
                             break;
                     }
 
+                    if(gamepad1.triangle){
+                        led.setColor(1);
+                    }else{
+                        led.setColor(0);
+                    }
+
                     if(gamepad1.left_bumper) {
                         driveController.stopThread();
                         sleep(200);
@@ -231,7 +256,7 @@ public class TeleopSOLO extends LinearOpMode {
                         sleep( 200 );
                         currentState = TeleopSOLO.teleopStates.Intake;
                     }
-                break;
+                    break;
 
                 case SpecimenTEAVA: //adica scorare
 
@@ -297,5 +322,3 @@ public class TeleopSOLO extends LinearOpMode {
 
     }
 }
-
-
